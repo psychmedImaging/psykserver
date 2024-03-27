@@ -1,0 +1,52 @@
+{
+	"MeasurementToolMetadata":{
+		"Description":"EQ-5D-3L"
+	},
+	"eq5d_mobility":{
+		"Description":"Mobility",
+		"Levels":{
+			"1":"I have no problems in walking about",
+			"2":"I have some problems in walking about",
+			"3":"I am confined to bed"
+		}
+	},
+	"eq5d_selfcare":{
+		"Description":"Self-Care",
+		"Levels":{
+			"1":"I have no problems with self-care",
+			"2":"I have some problems washing or dressing myself",
+			"3":"I am unable to wash or dress myself"
+		}
+	},
+	"eq5d_usual_activities":{
+		"Description":"Usual Activities",
+		"Levels":{
+			"1":"I have no problems with performing my usual activities",
+			"2":"I have some problems with performing my usual activities",
+			"3":"I am unable to perform my usual activities"
+		}
+	},
+	"eq5d_pain_discomfort":{
+		"Description":"Pain\/Discomfort",
+		"Levels":{
+			"1":"I have no pain or discomfort",
+			"2":"I have moderate pain or discomfort",
+			"3":"I have extreme pain or discomfort"
+		}
+	},
+	"eq5d_anxiety_depression":{
+		"Description":"Anxiety\/Depression",
+		"Levels":{
+			"1":"I am not anxious or depressed",
+			"2":"I am moderately anxious or depressed",
+			"3":"I am extremely anxious or depressed"
+		}
+	},
+	"eq5d_vas":{
+		"Description":"Health State (Visual Analogue Scale)",
+		"Levels":{
+			"0":"Worst imaginable health state",
+			"100":"Best imaginable health state"
+		}
+	}
+}

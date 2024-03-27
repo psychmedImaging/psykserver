@@ -1,0 +1,147 @@
+{
+	"MeasurementToolMetadata":{
+		"Description":"The Clinical Assessment Interview for Negative Symptoms (CAINS)"
+	},
+	"cains1":{
+		"Description":"Motivation for Close Family\/Spouse\/Partner Relationships",
+		"Levels":{
+			"0":"No impairment",
+			"1":"Mild deficit",
+			"2":"Moderate deficit",
+			"3":"Moderately severe deficit",
+			"4":"Severe deficit"
+		}
+	},
+	"cains2":{
+		"Description":"Motivation for Close Friendships & Romantic Relationships",
+		"Levels":{
+			"0":"No impairment",
+			"1":"Mild deficit",
+			"2":"Moderate deficit",
+			"3":"Moderately severe deficit",
+			"4":"Severe deficit"
+		}
+	},
+	"cains3":{
+		"Description":"Frequency of Pleasurable Social Activities – Past Week",
+		"Levels":{
+			"0":"No impairment",
+			"1":"Mild deficit",
+			"2":"Moderate deficit",
+			"3":"Moderately severe deficit",
+			"4":"Severe deficit"
+		}
+	},
+	"cains4":{
+		"Description":"Frequency of Expected Pleasurable Social Activities – Next week",
+		"Levels":{
+			"0":"No impairment",
+			"1":"Mild deficit",
+			"2":"Moderate deficit",
+			"3":"Moderately severe deficit",
+			"4":"Severe deficit"
+		}
+	},
+	"cains5":{
+		"Description":"Motivation for Work & School Activities",
+		"Levels":{
+			"0":"No impairment",
+			"1":"Mild deficit",
+			"2":"Moderate deficit",
+			"3":"Moderately severe deficit",
+			"4":"Severe deficit"
+		}
+	},
+	"cains6":{
+		"Description":"Frequency of Expected Pleasurable Work & School Activities – Next Week",
+		"Levels":{
+			"0":"No impairment",
+			"1":"Mild deficit",
+			"2":"Moderate deficit",
+			"3":"Moderately severe deficit",
+			"4":"Severe deficit"
+		}
+	},
+	"cains7":{
+		"Description":"Motivation for Recreational Activities",
+		"Levels":{
+			"0":"No impairment",
+			"1":"Mild deficit",
+			"2":"Moderate deficit",
+			"3":"Moderately severe deficit",
+			"4":"Severe deficit"
+		}
+	},
+	"cains8":{
+		"Description":"Frequency of Pleasurable Recreational Activities - Past Week",
+		"Levels":{
+			"0":"No impairment",
+			"1":"Mild deficit",
+			"2":"Moderate deficit",
+			"3":"Moderately severe deficit",
+			"4":"Severe deficit"
+		}
+	},
+	"cains9":{
+		"Description":"Frequency of Expected Pleasurable Recreational Activities – Next Week",
+		"Levels":{
+			"0":"No impairment",
+			"1":"Mild deficit",
+			"2":"Moderate deficit",
+			"3":"Moderately severe deficit",
+			"4":"Severe deficit"
+		}
+	},
+	"cains10":{
+		"Description":"Facial Expression",
+		"Levels":{
+			"0":"No impairment",
+			"1":"Mild deficit",
+			"2":"Moderate deficit",
+			"3":"Moderately severe deficit",
+			"4":"Severe deficit"
+		}
+	},
+	"cains11":{
+		"Description":"Vocal Expression",
+		"Levels":{
+			"0":"No impairment",
+			"1":"Mild deficit",
+			"2":"Moderate deficit",
+			"3":"Moderately severe deficit",
+			"4":"Severe deficit"
+		}
+	},
+	"cains12":{
+		"Description":"Expressive Gestures",
+		"Levels":{
+			"0":"No impairment",
+			"1":"Mild deficit",
+			"2":"Moderate deficit",
+			"3":"Moderately severe deficit",
+			"4":"Severe deficit"
+		}
+	},
+	"cains13":{
+		"Description":"Quantity of speech",
+		"Levels":{
+			"0":"No impairment",
+			"1":"Mild deficit",
+			"2":"Moderate deficit",
+			"3":"Moderately severe deficit",
+			"4":"Severe deficit"
+		}
+	},
+	"cains_total":{
+		"Description":"Total score (sum of all items)",
+		"Derivative":true
+	},
+	"cains_map":{
+		"Description":"Motivation and pleasure subscale (sum of items 1-9)",
+		"Derivative":true
+	},
+	"cains_exp":{
+		"Description":"Expression subscale (sum of items 10-13)",
+		"Derivative":true
+	}
+}
