@@ -1,0 +1,204 @@
+{
+    "MeasurementToolMetadata": {
+        "Description": " the psychotic symptom rating scales"
+    },
+    "auditory1": {
+        "Description": "Auditory hallucinations: Frequency",
+        "Levels": {
+            "0": "Voices not present or present less than once a week",
+            "1": "Voices occur for at least once a week",
+            "2": "Voices occur at least once a day",
+            "3": "Voices occur at least once a hour",
+            "4": "Voices occur continuously or almost continuously i.e. stop for only a few seconds or minutes"
+        }
+    },
+    "auditory2": {
+        "Description": "Auditory hallucinations: Duration",
+        "Levels": {
+            "0": "Voices not present",
+            "1": "Voices last for a few seconds, fleeting voices",
+            "2": "Voices last for several minutes",
+            "3": "Voices last for at least one hour",
+            "4": "Voices last for hours at a time"
+        }
+    },
+    "auditory3": {
+        "Description": "Auditory hallucinations: Location",
+        "Levels": {
+            "0": "No voices present",
+            "1": "Voices sound like they are inside head only",
+            "2": "Voices outside the head, but close to ears or head. Voices inside the head may also be present",
+            "3": "Voices sound like they are inside or close to ears and outside head away from ears",
+            "4": "Voices sound like they are from outside the head only"
+        }
+    },
+    "auditory4": {
+        "Description": "Auditory hallucinations: Loudness",
+        "Levels": {
+            "0": "Voices not present",
+            "1": "Quieter than own voice, whispers.",
+            "2": "About same loudness as own voice",
+            "3": "Louder than own voice",
+            "4": "Extremely loud, shouting"
+        }
+    },
+    "auditory5": {
+        "Description": "Auditory hallucinations: Beliefs re-origin of voices",
+        "Levels": {
+            "0": "Voices not present",
+            "1": "Believes voices to be solely internally generated and related to self",
+            "2": "Holds <50% conviction that voices originate from external causes",
+            "3": "Holds >=50% conviction (but <100%) that voices originate from external causes",
+            "4": "Believes voices are solely due to external causes (100% conviction)"
+        }
+    },
+    "auditory5_comment": {
+        "Description": "Free-text comment to auditory5"
+    },
+    "auditory6": {
+        "Description": "Auditory hallucinations: Amount of negative content of voices",
+        "Levels": {
+            "0": "No unpleasant content",
+            "1": "Occasional unpleasant content (<10%)",
+            "2": "Minority of voice content is unpleasant or negative (<50%)",
+            "3": "Majority of voice content is unpleasant or negative (>=50%)",
+            "4": "All of voice content is unpleasant or negative"
+        }
+    },
+    "auditory7": {
+        "Description": "Auditory hallucinations: Degree of negative content",
+        "Levels": {
+            "0": "Not unpleasant or negative",
+            "1": "Some degree of negative content, but not personal comments relating to self or family e.g. swear words or comments not directed to self, e.g. 'the milkman's ugly'",
+            "2": "Personal verbal abuse, comments on behaviour e.g. 'shouldn't do that or say that'",
+            "3": "Personal verbal abuse relating to self-concept e.g. 'you're lazy, ugly, mad, perverted'",
+            "4": "Personal threats to self e.g. threats to harm self or family, extreme instructions or commands to harm self or others"
+        }
+    },
+    "auditory8": {
+        "Description": "Auditory hallucinations: Amount of distress",
+        "Levels": {
+            "0": "Voices not distressing at all",
+            "1": "Voices occasionally distressing, majority not distressing (<10%)",
+            "2": "Minority of voices distressing (<50%)",
+            "3": "Majority of voices distressing, minority not distressing (>=50%)",
+            "4": "Voices always distressing"
+        }
+    },
+    "auditory9": {
+        "Description": "Auditory hallucinations: Intensity of distress",
+        "Levels": {
+            "0": "Voices not distressing at all",
+            "1": "Voices slightly distressing",
+            "2": "Voices are distressing to a moderate degree",
+            "3": "Voices are very distressing, although subject could feel worse",
+            "4": "Voices are extremely distressing, feel the worst he/she could possibly feel"
+        }
+    },
+    "auditory10": {
+        "Description": "Auditory hallucinations: Disruption to life caused by voices",
+        "Levels": {
+            "0": "No disruption to life, able to maintain social and family relationships (if present)",
+            "1": "Voices causes minimal amount of disruption to life e.g. interferes with concentration although able to maintain daytime activity and social and family relationships and be able to maintain independent living without support",
+            "2": "Voices cause moderate amount of disruption to life causing some disturbance to daytime activity and/or family or social activities. The patient is not in hospital although may live in supported accommodation or receive additional help with daily living skills",
+            "3": "Voices cause severe disruption to life so that hospitalisation is usually necessary. The patient is able to maintain some daily activities, self-care and relationships while in hospital. The patient may also be in supported accommodation but experiencing severe disruption of life in terms of activities, daily living skills and/or relationships",
+            "4": "Voices cause complete disruption of daily life requiring hospitalization. The patient is unable to maintain any daily activities and social relationships. Self-care is also severely disrupted."
+        }
+    },
+    "auditory11": {
+        "Description": "Auditory hallucinations: Controllability of voices",
+        "Levels": {
+            "0": "Subject believes they can have control over the voices and can always bring on or dismiss them at will",
+            "1": "Subject believes they can have some control over the voices on the majority of occasions",
+            "2": "Subject believes they can have some control over their voices approximately half of the time",
+            "3": "Subject believes they can have some control over their voices but only occasionally. The majority of the time the subject experiences voices which are uncontrollable",
+            "4": "Subject has no control over when the voices occur and cannot dismiss or bring them on at all"
+        }
+    },
+    "voices_1st_person": {
+        "Description": "Number of 1st person voices"
+    },
+    "voices_2nd_person": {
+        "Description": "Number of 2nd person voices"
+    },
+    "voices_3rd_person": {
+        "Description": "Number of 3rd person voices"
+    },
+    "voices_single_words": {
+        "Description": "Number of voices uttering single words or phrases without pronouns"
+    },
+    "auditory_duration": {
+        "Description": "Duration of auditory hallucinations in years"
+    },
+    "delusion1": {
+        "Description": "Delusions: Amount of preoccupation with delusions",
+        "Levels": {
+            "0": "No delusions, or delusions which the subject thinks about less than once a week",
+            "1": "Subject thinks about beliefs at least once a week",
+            "2": "Subject thinks about beliefs at least once a day",
+            "3": "Subject thinks about beliefs at least once an hour",
+            "4": "Subject thinks about delusions continuously or almost continuously"
+        }
+    },
+    "delusion2": {
+        "Description": "Delusions: Duration of preoccupation with delusions",
+        "Levels": {
+            "0": "No delusions",
+            "1": "Thoughts about beliefs last for a few seconds, fleeting thoughts",
+            "2": "Thoughts about delusions last for several minutes",
+            "3": "Thoughts about delusions last for at least 1 hour",
+            "4": "Thoughts about delusions usually last for hours at a time"
+        }
+    },
+    "delusion3": {
+        "Description": "Delusions: Conviction",
+        "Levels": {
+            "0": "No conviction at all",
+            "1": "Very little conviction in reality of beliefs, <10%",
+            "2": "Some doubts relating to conviction in beliefs, between 10\u201349%",
+            "3": "Conviction in belief is very strong, between 50\u201399%",
+            "4": "Conviction is 100%"
+        }
+    },
+    "delusion3_comment": {
+        "Description": "Free-text comment to delusion3"
+    },
+    "delusion4": {
+        "Description": "Delusions: Amount of distress",
+        "Levels": {
+            "0": "Beliefs never cause distress",
+            "1": "Beliefs cause distress on the minority of occasions",
+            "2": "Beliefs cause distress on <50% of occasions",
+            "3": "Beliefs cause distress on the majority of occasions when they occur between 50\u201399% of time",
+            "4": "Beliefs always cause distress when they occur"
+        }
+    },
+    "delusion5": {
+        "Description": "Delusions: Intensity of distress",
+        "Levels": {
+            "0": "No distress",
+            "1": "Beliefs cause slight distress",
+            "2": "Beliefs cause moderate distress",
+            "3": "Beliefs cause marked distress",
+            "4": "Beliefs cause extreme distress, could not be worse"
+        }
+    },
+    "delusion6": {
+        "Description": "Delusions: Disruption to life caused by beliefs",
+        "Levels": {
+            "0": "No disruption to life, able to maintain independent living with no problems in daily living skills. Able to maintain social and family relationships (if present)",
+            "1": "Beliefs cause minimal amount of disruption to life, e.g. interferes with concentration although able to maintain daytime activity and social and family relationships and be able to maintain independent living without support",
+            "2": "Beliefs cause moderate amount of disruption to life causing some disturbance to daytime activity and/or family or social activities. The patient is not in hospital although may live in supported accommodation or receive additional help with daily living skills",
+            "3": "Beliefs cause severe disruption to life so that hospitalisation is usually necessary. The patient is able to maintain some daily activities, self-care and relationships while in hospital. The patient may be also be in supported accommodation but experiencing severe disruption of life in terms of activities, daily living skills and/or relationships",
+            "4": "Beliefs cause complete disruption of daily life requiring hospitalization. The patient is unable to maintain any daily activities and social relationships. Self-care is also severely disrupted"
+        }
+    },
+    "auditory_total": {
+        "Description": "Sum of items auditory1-auditory11",
+        "Derivative": 1
+    },
+    "delusion_total": {
+        "Description": "Sum of items delusion1-delusion6",
+        "Derivative": 1
+    }
+}
