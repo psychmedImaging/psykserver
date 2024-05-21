@@ -1,5 +1,7 @@
 ## HCP pipeline using SLURM to run containerized pipelines on BIDS prepared datasets
 
+Syntax: `run_pipeline path/to/bids/dataset`
+
 To build singularity containers run e.g. `singularity build fmriprep-23.2.3.simg docker://nipreps/fmriprep:23.2.3`
 
 The relevant images are:
