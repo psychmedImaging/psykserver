@@ -33,7 +33,7 @@ export APPTAINERENV_TEMPLATEFLOW_HOME="/templateflow"
 # TMPDIR is defined by UPPMAX (deleted when job is finished)
 
 PROJECT_NAME=$( echo $HOSTNAME | sed 's/-.*//' )
-FMRIPREP_DIR="derivatives/fmriprep-23.2.0"
+FMRIPREP_DIR="derivatives/${FMRIPREP_CONTAINER}"
 FREESURFER_DIR="${FMRIPREP_DIR}/sourcedata/freesurfer"
 CONTAINER_DIR="/proj/$PROJECT_NAME/bidsflow"
 TEMPLATEFLOW_HOST_HOME="${CONTAINER_DIR}/templateflow"
