@@ -52,6 +52,7 @@ if [ ! "$(sudo docker ps -a -q -f name=$container_name)" ]; then
       -v ~/neurodesktop-storage:/neurodesktop-storage \
       -v $storage_mount:/data \
       -e MATLABPATH="/data/argos/Iron/common_software" \
+      -e JUPYTERLAB_WORKSPACES_DIR="/home/jovyan/data" \
       -e NB_UID="$id_num" -e NB_GID=$group_id \
       -p $port_num:8888 \
       -e NEURODESKTOP_VERSION=$version vnmd/neurodesktop:$version
