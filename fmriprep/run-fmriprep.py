@@ -30,9 +30,7 @@ with open(configPath) as f:
     cfgString=' '.join(x + ' ' + y for x, y in cfg['options'].items())
 containerFile='fmriprep-'+cfg['version']
 logFolder=os.path.join(studyFolder,'logs',containerFile+'_'+datetime.datetime.now().strftime('%Y%m%d-%H%M%S'))
-outputFolder=os.path.join(studyFolder,'derivatives',containerFile)
 os.makedirs(logFolder,exist_ok=True)
-os.makedirs(outputFolder,exist_ok=True)
 
 #get participants to process
 participantFile=os.path.join(bidsFolder,'participants.tsv')
