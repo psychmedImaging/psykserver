@@ -1,5 +1,5 @@
 {
-    "version": "25.2.2",
+    "container": "fmriprep-25.2.2",
     "options": {
         "--skip_bids_validation": "",
         "-t": "rest",
@@ -10,6 +10,11 @@
         "-w": "/work",
         "--write-graph": "",
         "--notrack": "",
-        "--sloppy": ""
+        "--sloppy": "",
+        "--reports-only": ""
+    },
+    "environment": {
+        "APPTAINERENV_FS_LICENSE": "/sw/apps/freesurfer/7.4.1/bianca/license.txt",
+        "APPTAINERENV_TEMPLATEFLOW_HOME": "/templateflow"
     }
 }
