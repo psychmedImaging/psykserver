@@ -8,13 +8,6 @@ import os, subprocess, argparse, datetime, json, glob, io, csv
 
 def run_bidsapp(study_folder,config_file,depend_job=None):
     
-    from sbatch import sbatch
-    from sbatch import get_participants
-    
-    #sbatch defaults
-    timelimit='24:00:00'
-    ntasks='8'
-    
     #set up paths etc
     project_name=os.environ['HOSTNAME'].split('-')[0]
     current_folder=os.path.realpath(__file__)
@@ -27,9 +20,14 @@ def run_bidsapp(study_folder,config_file,depend_job=None):
     with open(config_path) as f:
         cfg=json.load(f)
     option_string=' '.join(x + ' ' + y for x, y in cfg['options'].items())
-    container_file=cfg['container']
+    container=cfg['container']
+    container_file=os.path.join(container_folder,container)
+    if 'job-name' in cfg:
+        job_name=cfg['job-name']
+    else:
+        job_name=os.path.splitext(container_file)[0]
     input_folder=cfg['input-data']
-    log_folder=os.path.join(study_folder,'logs',container_file+'_'+datetime.datetime.now().strftime('%Y%m%d-%H%M%S'))
+    log_folder=os.path.join(study_folder,'logs',job_name+'_'+datetime.datetime.now().strftime('%Y%m%d-%H%M%S'))
     os.makedirs(log_folder,exist_ok=True)
     if 'environment' in cfg:
         for key,val in cfg['environment'].items():
@@ -50,13 +48,13 @@ def run_bidsapp(study_folder,config_file,depend_job=None):
     
     #build the command to send to sbatch:
     getsubject_cmd='subject="$(cut -d" " -f$SLURM_ARRAY_TASK_ID <<<'+'"'+(' '.join(participants))+'")"'
-    log_cmd='exitcode=$?\necho "$subject\t$SLURM_ARRAY_TASK_ID\t$exitcode" >> '+os.path.join(log_folder,container_file+'.tsv')
+    log_cmd='exitcode=$?\necho "$subject\t$SLURM_ARRAY_TASK_ID\t$exitcode" >> '+os.path.join(log_folder,job_name+'.tsv')
     singularity_cmd='singularity run --cleanenv -B '+bids_folder+':/data -B '+templateflow_folder+':/templateflow -B '+os.environ['TMPDIR']+':/work'
-    bidsapp_cmd=os.path.join(container_folder,container_file)+'.simg '+input_folder+' /data/derivatives/'+container_file+' participant --participant-label $subject '+option_string
+    bidsapp_cmd=container_file+' '+input_folder+' /data/derivatives/'+job_name+' participant --participant-label $subject '+option_string
     full_cmd=getsubject_cmd+'\n'+singularity_cmd+' '+bidsapp_cmd+'\n'+log_cmd
     
     #submit the job array to sbatch:
-    jobid=sbatch(container_file,project_name,'11',os.path.join(log_folder,'%A-%a'),full_cmd,timelimit,ntasks,depend_job)
+    jobid=sbatch(job_name,project_name,array,os.path.join(log_folder,'%A-%a'),full_cmd,timelimit,ntasks,depend_job)
     os.chdir(log_folder)
     os.system('jobstats --plot -r '+jobid)
     print('Submitted sbatch job '+jobid+'\n\tContainer\t'+os.path.basename(container_file)+'\n\tProject folder\t'+study_folder+'\n\tConfig file\t'+config_path+'\n\t# participants\t'+str(len(participants)))
@@ -64,7 +62,7 @@ def run_bidsapp(study_folder,config_file,depend_job=None):
 
 def sbatch(job_name,proj_name,array,log,command,time,threads,dependency):
     sbatch_command = "sbatch --parsable -J {} -A {} -a {} -t {} -n {} -o {}.out -e {}.err --wrap='{}'".format(job_name,proj_name,array,time,threads,log,log,command)
-    if dependency:
+    if dependency is not None:
         sbatch_command+=' -d afterok:'+dependency
     return subprocess.getoutput(sbatch_command)
 
