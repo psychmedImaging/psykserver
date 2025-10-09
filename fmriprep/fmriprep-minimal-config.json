@@ -2,16 +2,9 @@
     "container": "fmriprep-25.2.2",
     "input-data": "/data",
     "options": {
-        "--skip_bids_validation": "",
-        "-t": "rest",
-        "--subject-anatomical-reference": "first-lex",
-        "--session-label": "ses-baseline",
-        "--use-syn-sdc": "warn",
         "--fs-license-file": "${APPTAINERENV_FS_LICENSE}",
         "-w": "/work",
-        "--write-graph": "",
-        "--notrack": "",
-        "--sloppy": ""
+        "--notrack": ""
     },
     "environment": {
         "APPTAINERENV_FS_LICENSE": "/sw/apps/freesurfer/7.4.1/bianca/license.txt",
