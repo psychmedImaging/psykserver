@@ -1,5 +1,6 @@
 {
     "container": "fmriprep-25.2.2",
+    "input-data": "/data",
     "options": {
         "--skip_bids_validation": "",
         "-t": "rest",
