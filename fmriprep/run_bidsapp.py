@@ -1,66 +1,83 @@
-#The user needs to provide a path to [basefolder], containing the subfolder 'data' with a (valid) bids project, including a participants.tsv within
-#All participants in data/participants.tsv will be processed
-#The script looks for *_config.json in [basefolder]. If not present, default settings are used.
+#The user needs to provide 
+#    -a path to a project folder, containing the subfolder 'data' with a (valid) bids project, including a participants.tsv within
+#     (All participants in data/participants.tsv will be processed)
+#    -a config json file (the script will look for it in the root of the project folder
+#    -if depend_job is set to a job id, the current job will not start until the job corresponding to the id is finished
 
-import os, subprocess, argparse, datetime, json, glob
-from sbatch import sbatch
-from sbatch import get_participants
+import os, subprocess, argparse, datetime, json, glob, io, csv
 
-#sbatch defaults
-timelimit='24:00:00'
-ntasks='8'
+def run_bidsapp(study_folder,config_file,depend_job=None):
+    
+    from sbatch import sbatch
+    from sbatch import get_participants
+    
+    #sbatch defaults
+    timelimit='24:00:00'
+    ntasks='8'
+    
+    #set up paths etc
+    project_name=os.environ['HOSTNAME'].split('-')[0]
+    current_folder='/proj/sens2019025/bidsflow'#os.path.realpath(__file__)
+    container_folder=os.path.join(current_folder,'containers')
+    templateflow_folder=os.path.join(current_folder,'templateflow')
+    bids_folder=os.path.join(study_folder,'data')
+    config_path=os.path.join(study_folder,config_file)
+    
+    #get settings from config file
+    with open(config_path) as f:
+        cfg=json.load(f)
+    option_string=' '.join(x + ' ' + y for x, y in cfg['options'].items())
+    container_file=cfg['container']
+    input_folder=cfg['input-data']
+    log_folder=os.path.join(study_folder,'logs',container_file+'_'+datetime.datetime.now().strftime('%Y%m%d-%H%M%S'))
+    os.makedirs(log_folder,exist_ok=True)
+    if 'environment' in cfg:
+        for key,val in cfg['environment'].items():
+            os.environ[key] = val
+    if 'sbatch' in cfg:
+        timelimit=cfg['sbatch']['timelimit']
+        ntasks=cfg['sbatch']['ntasks']
+    
+    #clean up non-finished freesurfer runs
+    freesurfer_folder=os.path.join(bids_folder,'derivatives',container_file,'sourcedata','freesurfer')
+    if os.path.exists(freesurfer_folder):
+        for f in glob.glob(os.path.join(freesurfer_folder,'*/scripts/*Running*')):
+            os.remove(f)
+    
+    #get participants to process
+    participants=get_participants(bids_folder)
+    array='1-'+str(len(participants))
+    
+    #build the command to send to sbatch:
+    getsubject_cmd='subject="$(cut -d" " -f$SLURM_ARRAY_TASK_ID <<<'+'"'+(' '.join(participants))+'")"'
+    log_cmd='exitcode=$?\necho "$subject\t$SLURM_ARRAY_TASK_ID\t$exitcode" >> '+os.path.join(log_folder,container_file+'.tsv')
+    singularity_cmd='singularity run --cleanenv -B '+bids_folder+':/data -B '+templateflow_folder+':/templateflow -B '+os.environ['TMPDIR']+':/work'
+    bidsapp_cmd=os.path.join(container_folder,container_file)+'.simg '+input_folder+' /data/derivatives/'+container_file+' participant --participant-label $subject '+option_string
+    full_cmd=getsubject_cmd+'\n'+singularity_cmd+' '+bidsapp_cmd+'\n'+log_cmd
+    
+    #submit the job array to sbatch:
+    jobid=sbatch(container_file,project_name,'11',os.path.join(log_folder,'%A-%a'),full_cmd,timelimit,ntasks,depend_job)
+    os.chdir(log_folder)
+    os.system('jobstats --plot -r '+jobid)
+    print('Submitted sbatch job '+jobid+'\n\tContainer\t'+os.path.basename(container_file)+'\n\tProject folder\t'+study_folder+'\n\tConfig file\t'+config_path+'\n\t# participants\t'+str(len(participants)))
+    return jobid
 
-projectName=os.environ['HOSTNAME'].split('-')[0]
-currentFolder=os.path.realpath(__file__)
-containerFolder=os.path.join(currentFolder,'containers')
-templateflowFolder=os.path.join(currentFolder,'templateflow')
+def sbatch(job_name,proj_name,array,log,command,time,threads,dependency):
+    sbatch_command = "sbatch --parsable -J {} -A {} -a {} -t {} -n {} -o {}.out -e {}.err --wrap='{}'".format(job_name,proj_name,array,time,threads,log,log,command)
+    if dependency:
+        sbatch_command+=' -d afterok:'+dependency
+    return subprocess.getoutput(sbatch_command)
 
-#read arguments and set up paths
-parser = argparse.ArgumentParser(prog='run-fmriprep')
-parser.add_argument('path')
-parser.add_argument('-c', '--config-file',required=True)
-args=parser.parse_args()
-studyFolder=args.path
-bidsFolder=os.path.join(studyFolder,'data')
-configFile=args.config_file
+def get_participants(folder):
+    file=os.path.join(folder,'participants.tsv')
+    if not os.path.exists(file):
+        raise Exception('No participants.tsv found in '+folder)
+    participants=[]
+    with io.open(file,'r',encoding='utf-8-sig') as f:
+        reader=csv.DictReader(f,delimiter='\t')
+        for row in reader:
+            participants.append(row['participant_id'])
+    return participants
 
-#get settings from config file
-configPath=os.path.join(studyFolder,configFile)
-if not os.path.exists(configPath):
-    configPath=os.path.join(currentFolder,configFile)
-with open(configPath) as f:
-    cfg=json.load(f)
-optionString=' '.join(x + ' ' + y for x, y in cfg['options'].items())
-containerFile=cfg['container']
-inputFolder=cfg['input-data']
-logFolder=os.path.join(studyFolder,'logs',containerFile+'_'+datetime.datetime.now().strftime('%Y%m%d-%H%M%S'))
-os.makedirs(logFolder,exist_ok=True)
-if 'environment' in cfg:
-    for key,val in cfg['environment'].items():
-        os.environ[key] = val
-if 'sbatch' in cfg:
-    timelimit=cfg['sbatch']['timelimit']
-    ntasks=cfg['sbatch']['ntasks']
-
-#clean up non-finished freesurfer runs
-freesurferFolder=os.path.join(bidsFolder,'derivatives',containerFile,'sourcedata','freesurfer')
-if os.path.exists(freesurferFolder):
-    for f in glob.glob(os.path.join(freesurferFolder,'*/scripts/*Running*')):
-        os.remove(f)
-
-#get participants to process
-participants=get_participants(bidsFolder)
-array='1-'+str(len(participants))
-
-#build the command to send to sbatch:
-getsubjectCommand='subject="$(cut -d" " -f$SLURM_ARRAY_TASK_ID <<<'+'"'+(' '.join(participants))+'")"'
-logCommand='exitcode=$?\necho "$subject\t$SLURM_ARRAY_TASK_ID\t$exitcode" >> '+os.path.join(logFolder,containerFile+'.tsv')
-singularityCommand='singularity run --cleanenv -B '+bidsFolder+':/data -B '+templateflowFolder+':/templateflow -B '+os.environ['TMPDIR']+':/work'
-bidsappCommand=os.path.join(containerFolder,containerFile)+'.simg '+inputFolder+' /data/derivatives/'+containerFile+' participant --participant-label $subject '+optionString
-fullCommand=getsubjectCommand+'\n'+singularityCommand+' '+bidsappCommand+'\n'+logCommand
-
-#submit the job array to sbatch:
-jobid=sbatch(containerFile,projectName,'11',os.path.join(logFolder,'%A-%a'),fullCommand,timelimit,ntasks)
-os.chdir(logFolder)
-os.system('jobstats --plot -r '+jobid)
-print('Submitted sbatch job '+jobid+'\n\tContainer\t'+os.path.basename(containerFile)+'\n\tProject folder\t'+studyFolder+'\n\tConfig file\t'+configPath+'\n\t# participants\t'+str(len(participants)))
+if __name__ == '__main__':
+    run_bidsapp(study_folder,config_file)
