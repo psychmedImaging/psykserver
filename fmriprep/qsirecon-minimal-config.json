@@ -1,0 +1,22 @@
+{
+    "job-name": "qsirecon-1.1.1-4S256-NoACT",  
+    "container": "qsirecon-1.1.1.simg",
+    "input-data": "/data/derivatives/qsiprep-1.0.1",
+    "options": {
+        "--output-resolution": "2",
+        "--fs-license-file": "${APPTAINERENV_FS_LICENSE}",
+        "--fs-subjects-dir": "/data/derivatives/fmriprep-25.2.2/sourcedata/freesurfer",
+        "--recon-spec": "mrtrix_singleshell_ss3t_noACT",
+        "--atlases": "4S256Parcels",
+        "-w": "/work",
+        "--notrack": ""
+    },
+    "environment": {
+        "APPTAINERENV_FS_LICENSE": "/sw/apps/freesurfer/7.4.1/bianca/license.txt",
+        "APPTAINERENV_TEMPLATEFLOW_HOME": "/templateflow"
+    },
+    "sbatch": {
+        "timelimit": "24:00:00",
+        "ntasks": "8"
+    }
+}
