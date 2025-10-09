@@ -11,7 +11,7 @@ timelimit='24:00:00'
 ntasks='8'
 
 projectName=os.environ['HOSTNAME'].split('-')[0]
-currentFolder='/proj/sens2019025/bidsflow'#os.path.realpath(__file__)
+currentFolder=os.path.realpath(__file__)
 containerFolder=os.path.join(currentFolder,'containers')
 templateflowFolder=os.path.join(currentFolder,'templateflow')
 
@@ -59,6 +59,6 @@ bidsappCommand=os.path.join(containerFolder,containerFile)+'.simg /data /data/de
 fullCommand=getsubjectCommand+'\n'+singularityCommand+' '+bidsappCommand+'\n'+logCommand
 
 #submit the job array to sbatch:
-#jobid=sbatch(containerFile,projectName,'11',os.path.join(logFolder,'%A-%a'),fullCommand,timelimit,ntasks)
-#os.system('cd '+logFolder+' & jobstats --plot -r '+jobid)
-#print('Submitted sbatch job '+jobid+'\n\tContainer\t'+os.path.basename(containerFile)+'\n\tProject folder\t'+studyFolder+'\n\tConfig file\t'+configPath+'\n\t# participants\t'+str(len(participants)))
+jobid=sbatch(containerFile,projectName,'11',os.path.join(logFolder,'%A-%a'),fullCommand,timelimit,ntasks)
+os.system('cd '+logFolder+' & jobstats --plot -r '+jobid)
+print('Submitted sbatch job '+jobid+'\n\tContainer\t'+os.path.basename(containerFile)+'\n\tProject folder\t'+studyFolder+'\n\tConfig file\t'+configPath+'\n\t# participants\t'+str(len(participants)))
