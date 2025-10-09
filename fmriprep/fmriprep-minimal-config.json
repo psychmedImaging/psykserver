@@ -1,5 +1,6 @@
 {
-    "container": "fmriprep-25.2.2",
+    "job-name": "fmriprep-25.2.2",
+    "container": "fmriprep-25.2.2.simg",
     "input-data": "/data",
     "options": {
         "--fs-license-file": "${APPTAINERENV_FS_LICENSE}",
