@@ -60,5 +60,6 @@ fullCommand=getsubjectCommand+'\n'+singularityCommand+' '+bidsappCommand+'\n'+lo
 
 #submit the job array to sbatch:
 jobid=sbatch(containerFile,projectName,'11',os.path.join(logFolder,'%A-%a'),fullCommand,timelimit,ntasks)
-os.system('cd '+logFolder+' & jobstats --plot -r '+jobid)
+os.chdir(logFolder)
+os.system('jobstats --plot -r '+jobid)
 print('Submitted sbatch job '+jobid+'\n\tContainer\t'+os.path.basename(containerFile)+'\n\tProject folder\t'+studyFolder+'\n\tConfig file\t'+configPath+'\n\t# participants\t'+str(len(participants)))
