@@ -32,6 +32,7 @@ with open(configPath) as f:
     cfg=json.load(f)
 optionString=' '.join(x + ' ' + y for x, y in cfg['options'].items())
 containerFile=cfg['container']
+inputFolder=cfg['input-data']
 logFolder=os.path.join(studyFolder,'logs',containerFile+'_'+datetime.datetime.now().strftime('%Y%m%d-%H%M%S'))
 os.makedirs(logFolder,exist_ok=True)
 if 'environment' in cfg:
@@ -55,7 +56,7 @@ array='1-'+str(len(participants))
 getsubjectCommand='subject="$(cut -d" " -f$SLURM_ARRAY_TASK_ID <<<'+'"'+(' '.join(participants))+'")"'
 logCommand='exitcode=$?\necho "$subject\t$SLURM_ARRAY_TASK_ID\t$exitcode" >> '+os.path.join(logFolder,containerFile+'.tsv')
 singularityCommand='singularity run --cleanenv -B '+bidsFolder+':/data -B '+templateflowFolder+':/templateflow -B '+os.environ['TMPDIR']+':/work'
-bidsappCommand=os.path.join(containerFolder,containerFile)+'.simg /data /data/derivatives/'+containerFile+' participant --participant-label $subject '+optionString
+bidsappCommand=os.path.join(containerFolder,containerFile)+'.simg '+inputFolder+' /data/derivatives/'+containerFile+' participant --participant-label $subject '+optionString
 fullCommand=getsubjectCommand+'\n'+singularityCommand+' '+bidsappCommand+'\n'+logCommand
 
 #submit the job array to sbatch:
