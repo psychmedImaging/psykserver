@@ -18,7 +18,7 @@ templateflowFolder=os.path.join(currentFolder,'templateflow')
 #read arguments and set up paths
 parser = argparse.ArgumentParser(prog='run-fmriprep')
 parser.add_argument('path')
-parser.add_argument('-c', '--config-file',required=False,default='fmriprep-default.json')
+parser.add_argument('-c', '--config-file',required=True)
 args=parser.parse_args()
 studyFolder=args.path
 bidsFolder=os.path.join(studyFolder,'data')
