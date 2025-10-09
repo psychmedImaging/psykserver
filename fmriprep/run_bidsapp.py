@@ -17,7 +17,7 @@ def run_bidsapp(study_folder,config_file,depend_job=None):
     
     #set up paths etc
     project_name=os.environ['HOSTNAME'].split('-')[0]
-    current_folder='/proj/sens2019025/bidsflow'#os.path.realpath(__file__)
+    current_folder=os.path.realpath(__file__)
     container_folder=os.path.join(current_folder,'containers')
     templateflow_folder=os.path.join(current_folder,'templateflow')
     bids_folder=os.path.join(study_folder,'data')
@@ -80,4 +80,8 @@ def get_participants(folder):
     return participants
 
 if __name__ == '__main__':
-    run_bidsapp(study_folder,config_file)
+    parser = argparse.ArgumentParser(prog='run-bidsapp')
+    parser.add_argument('path')
+    parser.add_argument('config')
+    args=parser.parse_args()
+    run_bidsapp(args.path,args.config)
