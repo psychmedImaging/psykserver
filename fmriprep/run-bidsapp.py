@@ -2,12 +2,16 @@
 #All participants in data/participants.tsv will be processed
 #The script looks for *_config.json in [basefolder]. If not present, default settings are used.
 
-import os, subprocess, argparse, datetime, json
+import os, subprocess, argparse, datetime, json, glob
 from sbatch import sbatch
 from sbatch import get_participants
 
+#sbatch defaults
+timelimit='24:00:00'
+ntasks='8'
+
 projectName=os.environ['HOSTNAME'].split('-')[0]
-currentFolder=os.path.realpath(__file__)
+currentFolder='/proj/sens2019025/bidsflow'#os.path.realpath(__file__)
 containerFolder=os.path.join(currentFolder,'containers')
 templateflowFolder=os.path.join(currentFolder,'templateflow')
 
@@ -30,8 +34,18 @@ optionString=' '.join(x + ' ' + y for x, y in cfg['options'].items())
 containerFile=cfg['container']
 logFolder=os.path.join(studyFolder,'logs',containerFile+'_'+datetime.datetime.now().strftime('%Y%m%d-%H%M%S'))
 os.makedirs(logFolder,exist_ok=True)
-for key,val in cfg['environment'].items():
-    os.environ[key] = val
+if 'environment' in cfg:
+    for key,val in cfg['environment'].items():
+        os.environ[key] = val
+if 'sbatch' in cfg:
+    timelimit=cfg['sbatch']['timelimit']
+    ntasks=cfg['sbatch']['ntasks']
+
+#clean up non-finished freesurfer runs
+freesurferFolder=os.path.join(bidsFolder,'derivatives',containerFile,'sourcedata','freesurfer')
+if os.path.exists(freesurferFolder):
+    for f in glob.glob(os.path.join(freesurferFolder,'*/scripts/*Running*')):
+        os.remove(f)
 
 #get participants to process
 participants=get_participants(bidsFolder)
@@ -45,6 +59,6 @@ bidsappCommand=os.path.join(containerFolder,containerFile)+'.simg /data /data/de
 fullCommand=getsubjectCommand+'\n'+singularityCommand+' '+bidsappCommand+'\n'+logCommand
 
 #submit the job array to sbatch:
-jobid=sbatch(containerFile,projectName,'11',os.path.join(logFolder,'%A-%a'),fullCommand)
-os.system('cd '+logFolder+' & jobstats --plot -r '+jobid)
-print('Submitted sbatch job '+jobid+'\n\tContainer\t'+os.path.basename(containerFile)+'\n\tProject folder\t'+studyFolder+'\n\tConfig file\t'+configPath+'\n\t# participants\t'+str(len(participants)))
+#jobid=sbatch(containerFile,projectName,'11',os.path.join(logFolder,'%A-%a'),fullCommand,timelimit,ntasks)
+#os.system('cd '+logFolder+' & jobstats --plot -r '+jobid)
+#print('Submitted sbatch job '+jobid+'\n\tContainer\t'+os.path.basename(containerFile)+'\n\tProject folder\t'+studyFolder+'\n\tConfig file\t'+configPath+'\n\t# participants\t'+str(len(participants)))

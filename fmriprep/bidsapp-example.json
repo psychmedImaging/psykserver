@@ -10,11 +10,14 @@
         "-w": "/work",
         "--write-graph": "",
         "--notrack": "",
-        "--sloppy": "",
-        "--reports-only": ""
+        "--sloppy": ""
     },
     "environment": {
         "APPTAINERENV_FS_LICENSE": "/sw/apps/freesurfer/7.4.1/bianca/license.txt",
         "APPTAINERENV_TEMPLATEFLOW_HOME": "/templateflow"
+    },
+    "sbatch": {
+        "timelimit": "24:00:00",
+        "ntasks": "8"
     }
 }
