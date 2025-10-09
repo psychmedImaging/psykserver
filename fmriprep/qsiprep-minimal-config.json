@@ -1,5 +1,6 @@
 {
-    "container": "qsiprep-1.0.1",
+    "job-name": "qsiprep-1.0.1-2mm",
+    "container": "qsiprep-1.0.1.simg",
     "input-data": "/data",
     "options": {
         "--output-resolution": "2",
