@@ -1,6 +1,10 @@
 ## HCP pipeline using SLURM to run containerized pipelines on BIDS prepared datasets
 
-Syntax: `run_pipeline path/to/bids/dataset`
+Run single pipeline: 
+`python3 run_bidsapp.py path/to/bids/dataset config_file.json`
+
+Run a workflow of pipelines:
+`python3 rub_batch.py path/to/bids/dataset workflow.json`
 
 To build singularity containers run e.g. `singularity build fmriprep-23.2.3.simg docker://nipreps/fmriprep:23.2.3`
 
