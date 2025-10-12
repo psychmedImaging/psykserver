@@ -10,7 +10,7 @@ def run_bidsapp(study_folder,config_file,depend_job=None):
     
     #set up paths etc
     project_name=os.environ['HOSTNAME'].split('-')[0]
-    current_folder='/proj/sens2019025/bidsflow'#os.path.dirname(os.path.realpath(__file__))
+    current_folder=os.path.dirname(os.path.realpath(__file__))
     container_folder=os.path.join(current_folder,'containers')
     templateflow_folder=os.path.join(current_folder,'templateflow')
     bids_folder=os.path.join(study_folder,'data')
@@ -32,9 +32,7 @@ def run_bidsapp(study_folder,config_file,depend_job=None):
     if 'environment' in cfg:
         for key,val in cfg['environment'].items():
             os.environ[key] = val
-    if 'sbatch' in cfg:
-        timelimit=cfg['sbatch']['timelimit']
-        ntasks=cfg['sbatch']['ntasks']
+    sbatch_string=' '.join(x + ' ' + y for x, y in cfg['sbatch'].items())
     
     #clean up non-finished freesurfer runs
     freesurfer_folder=os.path.join(bids_folder,'derivatives',container_file,'sourcedata','freesurfer')
@@ -59,7 +57,7 @@ def run_bidsapp(study_folder,config_file,depend_job=None):
                  exitcode=$?\n \
                  echo "$subject\t$SLURM_ARRAY_JOB_ID_$SLURM_ARRAY_TASK_ID\t$exitcode" >> '+os.path.join(log_folder,job_name+'_log.tsv')
 
-    jobid=sbatch(job_name,project_name,array,os.path.join(log_folder,'%A-%a'),bidsapp_cmd,timelimit,ntasks,depend_job)
+    jobid=sbatch(job_name,project_name,array,os.path.join(log_folder,'%A-%a'),bidsapp_cmd,sbatch_string,depend_job)
 
     #build and run command for logging resource usage:
     jobstats_cmd='sleep 30\n \
@@ -67,7 +65,7 @@ def run_bidsapp(study_folder,config_file,depend_job=None):
                   sacct --format="jobid,state,start,elapsed,ncpus,cputime,totalcpu,reqmem,maxrss,exitcode" -j '+jobid+' --parsable2 | column -s "|" -t > '+job_name+'_jobstats.txt\n \
                   jobstats -p '+jobid
     
-    sbatch('jobstats',project_name,0,os.path.join(log_folder,'%A'),jobstats_cmd,5,1,jobid)
+    sbatch('jobstats',project_name,0,os.path.join(log_folder,'%A'),jobstats_cmd,'-t 5 -n 1',jobid)
     print('Submitted sbatch job '+jobid+'\n \
                \tContainer\t'+os.path.basename(container_file)+'\n \
                \tProject folder\t'+study_folder+'\n \
@@ -75,8 +73,8 @@ def run_bidsapp(study_folder,config_file,depend_job=None):
                \t# participants\t'+str(len(participants)))
     return jobid
 
-def sbatch(job_name,proj_name,array,log,command,time,threads,dependency):
-    sbatch_cmd = "sbatch --parsable -J {} -A {} -a {} -t {} -n {} -o {}.out -e {}.err --wrap='{}'".format(job_name,proj_name,array,time,threads,log,log,command)
+def sbatch(job_name,proj_name,array,log,command,opts,dependency):
+    sbatch_cmd = "sbatch --parsable -J {} -A {} -a {} {} -o {}.out -e {}.err --wrap='{}'".format(job_name,proj_name,array,opts,log,log,command)
     if dependency is not None:
         sbatch_cmd+=' -d afterok:'+dependency
     return subprocess.getoutput(sbatch_cmd)
