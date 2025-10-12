@@ -1,9 +1,9 @@
 {
-    "job-name": "qsiprep-1.0.1-2mm",
-    "container": "qsiprep-1.0.1.simg",
+    "job-name": "qsiprep-[version[-label]]",
+    "container": "qsiprep-[version].simg",
     "input-data": "/data",
     "options": {
-        "--output-resolution": "2",
+        "--output-resolution": "[mm]",
         "--fs-license-file": "${APPTAINERENV_FS_LICENSE}",
         "-w": "/work",
         "--write-graph": ""
@@ -13,7 +13,7 @@
         "APPTAINERENV_TEMPLATEFLOW_HOME": "/templateflow"
     },
     "sbatch": {
-        "--time": "02:00:00",
-        "--ntasks": "8"
+        "--time": "[d-HH:MM:SS]",
+        "--ntasks": "[n]"
     }
 }
