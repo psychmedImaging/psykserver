@@ -19,9 +19,11 @@ def run_bidsapp(study_folder,config_file,depend_job=None):
     #get settings from config file
     with open(config_path) as f:
         cfg=json.load(f)
-    option_string=' '.join(x + ' ' + y for x, y in cfg['options'].items())
+    option_str=' '.join(x + ' ' + y for x, y in cfg['options'].items())
     container=cfg['container']
     container_file=os.path.join(container_folder,container)
+    if not os.path.exists(container_file):
+        raise Exception('The specified container does not exist: '+container_file)
     if 'job-name' in cfg:
         job_name=cfg['job-name']
     else:
@@ -32,32 +34,40 @@ def run_bidsapp(study_folder,config_file,depend_job=None):
     if 'environment' in cfg:
         for key,val in cfg['environment'].items():
             os.environ[key] = val
-    sbatch_string=' '.join(x + ' ' + y for x, y in cfg['sbatch'].items())
+    sbatch_str=' '.join(x + ' ' + y for x, y in cfg['sbatch'].items())
     
     #clean up non-finished freesurfer runs
     freesurfer_folder=os.path.join(bids_folder,'derivatives',container_file,'sourcedata','freesurfer')
     if os.path.exists(freesurfer_folder):
+        print('Cleaning up unfinished freesurfer processing...')
         for f in glob.glob(os.path.join(freesurfer_folder,'*/scripts/*Running*')):
             os.remove(f)
     
-    #get participants to process
-    participants=get_participants(bids_folder)
-    array='1-'+str(len(participants))
+    if cfg['level']=='participant':
+        #get participants to process
+        participants=get_participants(bids_folder)
+        array='1-'+str(len(participants))
+        sbatch_str+=' -a '+array
+        getsub_cmd='subject="$(cut -d" " -f$SLURM_ARRAY_TASK_ID <<<'+'"'+(' '.join(participants))+'")"\n'
+        level_str='participant --participant-label $subject'
+    elif cfg['level'].startswith('group'):
+        getsub_cmd=''
+        level_str=cfg['level']
+    else:
+        raise Exception('Invalid analysis level: '+cfg['level'])
+
     
     #build the bidsapp command and send to sbatch:
-    bidsapp_cmd='subject="$(cut -d" " -f$SLURM_ARRAY_TASK_ID <<<'+'"'+(' '.join(participants))+'")"\n \
-                 singularity run \
+    bidsapp_cmd=getsub_cmd+'singularity run \
                      --cleanenv \
                      -B '+bids_folder+':/data \
                      -B '+templateflow_folder+':/templateflow \
                      -B '+os.environ['TMPDIR']+':/work '+ \
-                     container_file+' '+input_folder+' /data/derivatives/'+job_name+' participant \
-                         --participant-label $subject '+ \
-                         option_string+'\n \
+                     container_file+' '+input_folder+' /data/derivatives/'+job_name+' '+level_str+' '+ \
+                         option_str+'\n \
                  exitcode=$?\n \
                  echo "$subject\t$SLURM_ARRAY_JOB_ID_$SLURM_ARRAY_TASK_ID\t$exitcode" >> '+os.path.join(log_folder,job_name+'_log.tsv')
-
-    jobid=sbatch(job_name,project_name,array,os.path.join(log_folder,'%A-%a'),bidsapp_cmd,sbatch_string,depend_job)
+    jobid=sbatch(job_name,project_name,os.path.join(log_folder,'%A-%a'),bidsapp_cmd,sbatch_str,depend_job)
 
     #build and run command for logging resource usage:
     jobstats_cmd='sleep 30\n \
@@ -65,16 +75,18 @@ def run_bidsapp(study_folder,config_file,depend_job=None):
                   sacct --format="jobid,state,start,elapsed,ncpus,cputime,totalcpu,reqmem,maxrss,exitcode" -j '+jobid+' --parsable2 | column -s "|" -t > '+job_name+'_jobstats.txt\n \
                   jobstats -p '+jobid
     
-    sbatch('jobstats',project_name,0,os.path.join(log_folder,'%A'),jobstats_cmd,'-t 5 -n 1',jobid)
-    print('Submitted sbatch job '+jobid+'\n \
-               \tContainer\t'+os.path.basename(container_file)+'\n \
-               \tProject folder\t'+study_folder+'\n \
-               \tConfig file\t'+config_path+'\n \
-               \t# participants\t'+str(len(participants)))
+    sbatch('jobstats',project_name,os.path.join(log_folder,'%A'),jobstats_cmd,'-t 5 -n 1',jobid)
+    submit_msg='Submitted sbatch job '+jobid+'\n \
+                    \tContainer\t'+os.path.basename(container_file)+'\n \
+                    \tProject folder\t'+study_folder+'\n \
+                    \tConfig file\t'+config_path
+    if cfg['level']=='participant':
+        submit_msg+='\n\t# participants\t'+str(len(participants))
+    print(submit_msg)
     return jobid
 
-def sbatch(job_name,proj_name,array,log,command,opts,dependency):
-    sbatch_cmd = "sbatch --parsable -J {} -A {} -a {} {} -o {}.out -e {}.err --wrap='{}'".format(job_name,proj_name,array,opts,log,log,command)
+def sbatch(job_name,proj_name,log,command,opts,dependency):
+    sbatch_cmd = "sbatch --parsable -J {} -A {} {} -o {}.out -e {}.err --wrap='{}'".format(job_name,proj_name,opts,log,log,command)
     if dependency is not None:
         sbatch_cmd+=' -d afterok:'+dependency
     return subprocess.getoutput(sbatch_cmd)
