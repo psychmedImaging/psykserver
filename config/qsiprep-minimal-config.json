@@ -13,7 +13,7 @@
         "APPTAINERENV_TEMPLATEFLOW_HOME": "/templateflow"
     },
     "sbatch": {
-        "timelimit": "02:00:00",
-        "ntasks": "8"
+        "--time": "02:00:00",
+        "--ntasks": "8"
     }
 }
