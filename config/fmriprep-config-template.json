@@ -1,5 +1,5 @@
 {
-    "job-name": "fmriprep-[version]",
+    "job-name": "fmriprep-[version[-label]]",
     "container": "fmriprep-[version].simg",
     "input-data": "/data",
     "level": "participant",
@@ -13,7 +13,7 @@
         "APPTAINERENV_TEMPLATEFLOW_HOME": "/templateflow"
     },
     "sbatch": {
-        "--time": "24:00:00",
-        "--ntasks": "8"
+        "--time": "[d-HH:MM:SS]",
+        "--ntasks": "[n]"
     }
 }
