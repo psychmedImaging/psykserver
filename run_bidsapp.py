@@ -70,7 +70,7 @@ def run_bidsapp(study_folder,config_file,depend_job=None):
     jobid=sbatch(job_name,project_name,os.path.join(log_folder,'%A-%a'),bidsapp_cmd,sbatch_str,depend_job)
 
     #build and run command for logging resource usage:
-    jobstats_cmd='sleep 30\n \
+    jobstats_cmd='sleep 120\n \
                   cd '+log_folder+'\n \
                   sacct --format="jobid,state,start,elapsed,ncpus,cputime,totalcpu,reqmem,maxrss,exitcode" -j '+jobid+' --parsable2 | column -s "|" -t > '+job_name+'_jobstats.txt\n \
                   jobstats -p '+jobid
