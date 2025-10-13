@@ -17,5 +17,5 @@ for job in cfg:
     depend_job=None
     dependency=job['dependency']
     if dependency is not None:
-        depend_job=jobids[dependency]
+        depend_job='afterok:'+jobids[dependency]
     jobids.append(run_bidsapp(study_folder,job_file,depend_job))
