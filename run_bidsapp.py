@@ -75,7 +75,7 @@ def run_bidsapp(study_folder,config_file,depend_job=None):
                   sacct --format="jobid,state,start,elapsed,ncpus,cputime,totalcpu,reqmem,maxrss,exitcode" -j '+jobid+' --parsable2 | column -s "|" -t > '+job_name+'_jobstats.txt\n \
                   jobstats -p '+jobid
     
-    sbatch('jobstats',project_name,os.path.join(log_folder,'%A'),jobstats_cmd,'-t 5 -n 1','afterany:'+jobid)
+    sbatch('jobstats',project_name,os.path.join(log_folder,'%A'),jobstats_cmd,'-t 15 -n 1','afterany:'+jobid)
     submit_msg='Submitted sbatch job '+jobid+'\n \
                     \tContainer\t'+os.path.basename(container_file)+'\n \
                     \tProject folder\t'+study_folder+'\n \
