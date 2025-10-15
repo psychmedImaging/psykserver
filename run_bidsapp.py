@@ -28,6 +28,8 @@ def run_bidsapp(study_folder,config_file,depend_job=None):
         job_name=cfg['job-name']
     else:
         job_name=os.path.splitext(container_file)[0]
+    output_folder=os.path.join(bids_folder,'derivatives',job_name)
+    os.makedirs(output_folder,exist_ok=True)
     input_folder=cfg['input-data']
     log_folder=os.path.join(study_folder,'logs',job_name+'_'+datetime.datetime.now().strftime('%Y%m%d-%H%M%S'))
     os.makedirs(log_folder,exist_ok=True)
@@ -37,7 +39,7 @@ def run_bidsapp(study_folder,config_file,depend_job=None):
     sbatch_str=' '.join(x + ' ' + y for x, y in cfg['sbatch'].items())
     
     #clean up non-finished freesurfer runs
-    freesurfer_folder=os.path.join(bids_folder,'derivatives',container_file,'sourcedata','freesurfer')
+    freesurfer_folder=os.path.join(output_folder,'sourcedata','freesurfer')
     if os.path.exists(freesurfer_folder):
         print('Cleaning up unfinished freesurfer processing...')
         for f in glob.glob(os.path.join(freesurfer_folder,'*/scripts/*Running*')):
@@ -49,7 +51,10 @@ def run_bidsapp(study_folder,config_file,depend_job=None):
         array='1-'+str(len(participants))
         sbatch_str+=' -a '+array
         getsub_cmd='subject="$(cut -d" " -f$SLURM_ARRAY_TASK_ID <<<'+'"'+(' '.join(participants))+'")"\n'
-        level_str='participant --participant-label $subject'
+        if container.startswith('freesurfer'):
+            level_str='participant --participant_label $subject'
+        else:
+            level_str='participant --participant-label $subject'
     elif cfg['level'].startswith('group'):
         getsub_cmd=''
         level_str=cfg['level']
@@ -63,7 +68,7 @@ def run_bidsapp(study_folder,config_file,depend_job=None):
                      -B '+bids_folder+':/data \
                      -B '+templateflow_folder+':/templateflow \
                      -B '+os.environ['TMPDIR']+':/work '+ \
-                     container_file+' '+input_folder+' /data/derivatives/'+job_name+' '+level_str+' '+ \
+                     container_file+' '+input_folder+' '+output_folder+' '+level_str+' '+ \
                          option_str+'\n \
                  exitcode=$?\n \
                  echo "$subject\t$SLURM_ARRAY_JOB_ID_$SLURM_ARRAY_TASK_ID\t$exitcode" >> '+os.path.join(log_folder,job_name+'_log.tsv')
@@ -99,7 +104,7 @@ def get_participants(folder):
     with io.open(file,'r',encoding='utf-8-sig') as f:
         reader=csv.DictReader(f,delimiter='\t')
         for row in reader:
-            participants.append(row['participant_id'])
+            participants.append(row['participant_id'].split('-')[1])
     return participants
 
 if __name__ == '__main__':
