@@ -9,6 +9,7 @@ port_num=${id_num: -4}
 username=$(whoami)
 group_name=employee
 group_id=`getent group $group_name | cut -d: -f3`
+ip_address=`hostname -I | cut -d' ' -f1`
 storage_mount="/storage/$username"
 argos_mount="$storage_mount/argos"
 wharf_mount="$storage_mount/wharf"
@@ -84,5 +85,5 @@ echo "To clean up:"
 echo "sudo docker rm -f ${container_name}"
 echo ""
 echo "To run neurodesktop, copy the following to your browser:"
-echo "http://130.238.147.180:$port_num/lab/workspaces/$workspace?token=$token"
+echo "http://${ip_address}:$port_num/lab/workspaces/$workspace?token=$token"
 exit 0
