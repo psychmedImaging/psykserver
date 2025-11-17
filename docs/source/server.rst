@@ -19,15 +19,15 @@ The server runs `Neurodesk <https://neurodesk.org/>`_ in a Docker container, whi
 
 Getting access
 ---------------
-Getting access to the server involves a few steps, but once your instance of Neurodesk is running, you can access it via a simple, bookmarkable, link.
+Getting access to the server involves a few steps, but once your instance of Neurodesktop is running, you can access it via a simple, bookmarkable, link.
 
 Easy route
 ^^^^^^^^^^
 Contact admin ``Jonas Persson`` for help.
 Together you will make sure you can access the server with your Akka-credentials,
 mount your Argos storage,
-and launch Neurodesk.
-Once you have access to Neurodesk in your browser, make sure to bookmark the link for future access.
+and launch Neurodesktop.
+Once you have access to Neurodesktop in your browser, make sure to bookmark the link for future access.
 
 Advanced route
 ^^^^^^^^^^^^^^^
@@ -41,12 +41,20 @@ If you cannot gain access, you need to contact your admin or helpdesk to be adde
 .. note:: AD-group and server-ip can be found in the file ``server_secrets.txt`` in Allvis.
 
 If you can access the server, now is the time to ask your admin to setup the proper permissions to mount Argos/UPPMAX and run docker.
-Once that is done, you start Neurodesk by running a shell script ``/srv/scripts/run_neurodesktop_version.sh version`` where ``version`` specifies what version of Neurodesk you want to run. You can find possible entries here: <https://hub.docker.com/r/vnmd/neurodesktop/tags>
+Once that is done, you start Neurodesktop by running a shell script ``/srv/scripts/run_neurodesktop_version.sh version`` where ``version`` specifies what version of Neurodesktop you want to run. You can find possible entries here: https://hub.docker.com/r/vnmd/neurodesktop/tags.
 
-.. warning:: If you do not specify a version, Neurodesk will lauch with the tag ``latest``. While this works, it is strongly recommended to always specify version, and document what version you are running, to be able to reproduce your results (and for easier troubleshooting).
+.. warning:: If you do not specify a version, Neurodesktop will lauch with the tag ``latest``. While this works, it is strongly recommended to always specify version, and document what version you are running, to be able to reproduce your results (and for easier troubleshooting).
 
 .. note:: As of now, versions later than ``2025-06-10`` do not work properly on this server.
 
 Usage
 -------
+There are two main ways to interact with Neurodesktop, via the JupyterLab interface or via a remote desktop.
 
+JupyterLab
+^^^^^^^^^^^
+This is your starting point when logging in to Neurodesktop. Here, you can work with notebooks, access a terminal, and manage files. There are many tutorials available on the `Neurodesk homepage <https://neurodesk.org/example-notebooks/intro.html>_` with example Jupyter Notebooks to get you started.
+
+Remote desktop
+^^^^^^^^^^^^^^^
+By clicking Neurodesktop in the JupyterLab launcher, you can access a remote desktop. Select one of the two options (try and see which one works best for you, which may depend on OS and browser). Here you can lauch several GUI based applications. If you want to run e.g. Matlab, RStudio, or VS Code, you can do so here. There are also many standalone applications available. The remote desktop is more flexible for visualization and interactive plots than matplotlib in JupyterLab.
