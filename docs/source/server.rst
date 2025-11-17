@@ -5,6 +5,7 @@ Introduction
 The server is a virtual machine hosted by Uppsala University, running Ubuntu.
 
 Current specifications (can be scaled as needed):
+
 | vCPUs: 8
 | RAM (GiB): 32
 | Disk space (GiB): 250
