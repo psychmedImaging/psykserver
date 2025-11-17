@@ -13,6 +13,10 @@ Current specifications (can be scaled as needed):
 
 The server runs `Neurodesk <https://neurodesk.org/>`_ in a Docker container, which can be accessed via a web browser. Neurodesk provides a remote desktop with many built in tools for neuroimaging and neurophysiology preprocessing, analysis, and visualization.
 
+.. youtube:: Hx2shbKDz9o
+   :width: 640
+   :height: 360
+
 Getting access
 ---------------
 
