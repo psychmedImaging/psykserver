@@ -53,7 +53,7 @@ There are two main ways to interact with Neurodesktop, via the JupyterLab interf
 
 JupyterLab
 ^^^^^^^^^^^
-This is your starting point when logging in to Neurodesktop. Here, you can work with notebooks, access a terminal, and manage files. There are many tutorials available on the `Neurodesk homepage <https://neurodesk.org/example-notebooks/intro.html>_` with example Jupyter Notebooks to get you started.
+This is your starting point when logging in to Neurodesktop. Here, you can work with notebooks, access a terminal, and manage files. There are many tutorials available on the `Neurodesk homepage <https://neurodesk.org/example-notebooks/intro.html>`_ with example Jupyter Notebooks to get you started.
 
 Remote desktop
 ^^^^^^^^^^^^^^^
