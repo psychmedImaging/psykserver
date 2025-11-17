@@ -49,6 +49,8 @@ Once that is done, you start Neurodesktop by running a shell script ``/srv/scrip
 
 Usage
 -------
+.. warning:: Since Neurodesk runs in a container, files that are created or modified in it will be removed if the server needs to restart. Therefore, you should rely on the filesystems that are mounted in it. The folder ``/data`` is your storage space on the server. Anything stored here will be stored in ``/storage/akka-id`` on the server. The subfolder ``/data/argos`` contains the group folders that you have access to on Argos. In general, it is recommended that you use the Argos storage. If you have an UPPMAX project and have its "wharf" mounted, this will be accessible under ``/data/wharf``.
+
 There are two main ways to interact with Neurodesktop, via the JupyterLab interface or via a remote desktop.
 
 JupyterLab
