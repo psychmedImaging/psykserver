@@ -3,7 +3,7 @@ UPPMAX
 
 TEST
 ------------
-See :doc:`Custom link text <../../../uppmax/config/fmriprep-config-template.json>`_
+See `Custom link text <../../../uppmax/config/fmriprep-config-template.json>`_
 
 .. note::
 UPPMAX provides high-performance computing (HPC) and enables running containerized processing pipelines, such as the so called BIDSapps for neuroimaging data, in a highly parallelized fashion.
