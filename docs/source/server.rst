@@ -54,9 +54,39 @@ Usage
 There are two main ways to interact with Neurodesktop, via the JupyterLab interface or via a remote desktop.
 
 JupyterLab
-^^^^^^^^^^^
+***********
 This is your starting point when logging in to Neurodesktop. Here, you can work with notebooks, access a terminal, and manage files. There are many tutorials available on the `Neurodesk homepage <https://neurodesk.org/example-notebooks/intro.html>`_ with example Jupyter Notebooks to get you started.
 
 Remote desktop
-^^^^^^^^^^^^^^^
+***************
 By clicking Neurodesktop in the JupyterLab launcher, you can access a remote desktop. Select one of the two options (try and see which one works best for you, which may depend on OS and browser). Here you can lauch several GUI based applications. If you want to run e.g. Matlab, RStudio, or VS Code, you can do so here. There are also many standalone applications available. The remote desktop is more flexible for visualization and interactive plots than matplotlib in JupyterLab.
+
+Accessing Neurodesktop
+^^^^^^^^^^^^^^^^^^^^^^^
+Option 1: Web browser
+*********************
+The quickest way to access Neurodesktop is via your browser. Simply open the link that appears in the terminal after running the startup script. You will reach JupyterLab from which you can access a remote desktop (click the Neurodesktop icon in the launcher). RDP and VNC both have their advantages and disadvantages. Pick the one that works best. A common limitation is that some key combinations (e.g. alt gr + key) might not work as well as copy/pasting from other applications.
+
+Option 2: Neurodesk App
+************************
+It is also possible to install a standalone software for accessing Neurodesktop (see instructions here: `<https://neurodesk.org/getting-started/local/neurodeskapp/>`_). After launching the app, click "connect to remote server..." and in the top field, enter the link you got from the startup script. This solution tends to work better with copy/pasting but has the saem limitations regarding keyboard usage.
+
+Option 3: Remote desktop client
+*********************************
+Finally, it is possible to access the remote desktop through a RDP client, such as Remmina in Linux or Remote Desktop Connection in Windows. For this to work, you first need to set the password for the user jovyan within Neurodesktop. Open a terminal after accessing Neurodesktop through e.g. your browser and type ``sudo passwd jovyan`` to set a password. After this, you can use your RDP client to connect.  
+
+In Remmina (Linux):
+
+:Protocol: RDP - Remote Desktop Protocol
+:Server: ``server-ip:3390`
+:Username: jovyan
+:Password: the password that you set
+
+Click Save and Connect
+
+In Remote Desktop Connection (Windows):
+
+:Computer: ``server-ip:3390`
+:User name: jovyan
+
+Click connect and enter password when prompted.
