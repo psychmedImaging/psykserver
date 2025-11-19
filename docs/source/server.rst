@@ -78,7 +78,7 @@ Finally, it is possible to access the remote desktop through a RDP client, such 
 In Remmina (Linux):
 
 :Protocol: RDP - Remote Desktop Protocol
-:Server: ``server-ip:3390`
+:Server: ``server-ip:3390``
 :Username: jovyan
 :Password: the password that you set
 
@@ -86,7 +86,7 @@ Click Save and Connect
 
 In Remote Desktop Connection (Windows):
 
-:Computer: ``server-ip:3390`
+:Computer: ``server-ip:3390``
 :User name: jovyan
 
 Click connect and enter password when prompted.
