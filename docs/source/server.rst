@@ -73,7 +73,7 @@ It is also possible to install a standalone software for accessing Neurodesktop 
 
 Option 3: Remote desktop client
 *********************************
-Finally, it is possible to access the remote desktop through a RDP client, such as Remmina in Linux or Remote Desktop Connection in Windows. For this to work, you first need to set the password for the user jovyan within Neurodesktop. Open a terminal after accessing Neurodesktop through e.g. your browser and type ``sudo passwd jovyan`` to set a password. After this, you can use your RDP client to connect.  
+Finally, it is possible to access the remote desktop through a RDP client, such as Remmina in Linux or Remote Desktop Connection in Windows. This is usually the most compatible solution for copy/pasting and key combinations. For this to work, you first need to set the password for the user jovyan within Neurodesktop. Open a terminal after accessing Neurodesktop through e.g. your browser and type ``sudo passwd jovyan`` to set a password. After this, you can use your RDP client to connect.  
 
 In Remmina (Linux):
 
