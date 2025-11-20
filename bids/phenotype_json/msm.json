@@ -1,0 +1,51 @@
+{
+	"MeasurementToolMetadata":{
+		"Description":"The Maudsley Staging Method (MSM)"
+	},
+	"msm_duration":{
+		"Description":"Duration",
+		"Levels":{
+			"1":"Acute (≤ 12 months)",
+			"2":"Sub-acute (13–24 months)",
+			"3":"Chronic (> 24 months)"
+		}
+	},
+	"msm_symptom_severity":{
+		"Description":"Symptom severity (at baseline)",
+		"Levels":{
+			"1":"Subsyndromal",
+			"2":"Mild",
+			"3":"Moderate",
+			"4":"Severe without psychosis",
+			"5":"Severe with psychosis"
+		}
+	},
+	"msm_antidepressants":{
+		"Description":"Treatment failures - Antidepressants",
+		"Levels":{
+			"1":"1–2 medications",
+			"2":"3–4 medications",
+			"3":"5–6 medications",
+			"4":"7–10 medications",
+			"5":">10 medications"
+		}
+	},
+	"msm_augmentation":{
+		"Description":"Treatment failures - Augmentation",
+		"Levels":{
+			"0":"Not used",
+			"1":"Used"
+		}
+	},
+	"msm_ect":{
+		"Description":"Treatment failures - Electroconvulsive therapy",
+		"Levels":{
+			"0":"Not used",
+			"1":"Used"
+		}
+	},
+	"msm_total":{
+		"Description":"Total score (sum of all items)",
+		"Derivative":true
+	}
+}

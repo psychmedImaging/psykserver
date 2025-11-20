@@ -1,0 +1,107 @@
+{
+    "dcm2niixOptions": "-b y -ba y -i y -z y -f '%3s_%d_%p_%t'",
+    "descriptions": [
+        {
+            "datatype": "anat",
+            "suffix": "T1w",
+            "criteria": {
+                "SeriesDescription": "sT1W_3D_TFE"
+            }
+        },
+        {
+            "id": "task_rest",
+            "datatype": "func",
+            "suffix": "bold",
+            "custom_entities": "task-rest",
+            "criteria": {
+                "SeriesDescription": "fMRI resting*"
+            },
+            "sidecar_changes": {
+                "TaskName": "rest",
+                "B0FieldSource": "rest_fmap"
+            }
+        },
+        {
+            "id": "task_MSIT",
+            "datatype": "func",
+            "suffix": "bold",
+            "custom_entities": "task-MSIT",
+            "criteria": {
+                "SeriesDescription": "fMRI MSIT*"
+            },
+            "sidecar_changes": {
+                "TaskName": "MSIT",
+                "B0FieldSource": "msit_fmap"
+            }
+        },
+        {
+            "datatype": "fmap",
+            "suffix": "epi",
+            "custom_entities": "acq-rest_dir-AP",
+            "criteria": {
+                "SeriesDescription": "fMRI geoCorr rest blipDown"
+            },
+            "sidecar_changes": {
+                "B0FieldIdentifier": "rest_fmap"
+            }
+        },
+        {
+            "datatype": "fmap",
+            "suffix": "epi",
+            "custom_entities": "acq-rest_dir-PA",
+            "criteria": {
+                "SeriesDescription": "fMRI geoCorr rest blipUP"
+            },
+            "sidecar_changes": {
+                "B0FieldIdentifier": "rest_fmap"
+            }
+        },
+        {
+            "datatype": "fmap",
+            "suffix": "epi",
+            "custom_entities": "acq-MSIT_dir-AP",
+            "criteria": {
+                "SeriesDescription": "fMRI geoCorr MSIT blipDown"
+            },
+            "sidecar_changes": {
+                "B0FieldIdentifier": "msit_fmap"
+            }
+        },
+        {
+            "datatype": "fmap",
+            "suffix": "epi",
+            "custom_entities": "acq-MSIT_dir-PA",
+            "criteria": {
+                "SeriesDescription": "fMRI geoCorr MSIT blipUP"
+            },
+            "sidecar_changes": {
+                "B0FieldIdentifier": "msit_fmap"
+            }
+        },
+        {
+            "id": "dti",
+            "datatype": "dwi",
+            "suffix": "dwi",
+            "custom_entities": "dir-PA",
+            "criteria": {
+                "SeriesDescription": "DTI_Brain_lab_48*"
+            },
+            "sidecar_changes": {
+                "B0FieldIdentifier": "dwi_fmap",
+                "B0FieldSource": "dwi_fmap"
+            }
+        },
+        {
+            "datatype": "fmap",
+            "suffix": "epi",
+            "custom_entities": "acq-dwi_dir-AP",
+            "criteria": {
+                "SeriesDescription": "DTI geoCorr*"
+            },
+            "sidecar_changes": {
+                "B0FieldIdentifier": "dwi_fmap",
+                "intendedFor": "dti"
+            }
+        }
+    ]
+}

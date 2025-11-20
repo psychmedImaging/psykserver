@@ -1,0 +1,322 @@
+{
+	"MeasurementToolMetadata":{
+		"Description":"Brief Psychiatric Rating Scale, expanded (BPRS-E)"
+	},
+	"bprs1":{
+		"Description":"Somatic Concern",
+		"Levels":{
+			"1":"None",
+			"2":"Very mild",
+			"3":"Mild",
+			"4":"Moderate",
+			"5":"Moderately severe",
+			"6":"Severe",
+			"7":"Extremely severe"
+		}
+	},
+	"bprs2":{
+		"Description":"Anxiety",
+		"Levels":{
+			"1":"None",
+			"2":"Very mild",
+			"3":"Mild",
+			"4":"Moderate",
+			"5":"Moderately severe",
+			"6":"Severe",
+			"7":"Extremely severe"
+		}
+	},
+	"bprs3":{
+		"Description":"Depression",
+		"Levels":{
+			"1":"None",
+			"2":"Very mild",
+			"3":"Mild",
+			"4":"Moderate",
+			"5":"Moderately severe",
+			"6":"Severe",
+			"7":"Extremely severe"
+		}
+	},
+	"bprs4":{
+		"Description":"Suicidality",
+		"Levels":{
+			"1":"None",
+			"2":"Very mild",
+			"3":"Mild",
+			"4":"Moderate",
+			"5":"Moderately severe",
+			"6":"Severe",
+			"7":"Extremely severe"
+		}
+	},
+	"bprs5":{
+		"Description":"Guilt",
+		"Levels":{
+			"1":"None",
+			"2":"Very mild",
+			"3":"Mild",
+			"4":"Moderate",
+			"5":"Moderately severe",
+			"6":"Severe",
+			"7":"Extremely severe"
+		}
+	},
+	"bprs6":{
+		"Description":"Hostility",
+		"Levels":{
+			"1":"None",
+			"2":"Very mild",
+			"3":"Mild",
+			"4":"Moderate",
+			"5":"Moderately severe",
+			"6":"Severe",
+			"7":"Extremely severe"
+		}
+	},
+	"bprs7":{
+		"Description":"Elevated Mood",
+		"Levels":{
+			"1":"None",
+			"2":"Very mild",
+			"3":"Mild",
+			"4":"Moderate",
+			"5":"Moderately severe",
+			"6":"Severe",
+			"7":"Extremely severe"
+		}
+	},
+	"bprs8":{
+		"Description":"Grandiosity",
+		"Levels":{
+			"1":"None",
+			"2":"Very mild",
+			"3":"Mild",
+			"4":"Moderate",
+			"5":"Moderately severe",
+			"6":"Severe",
+			"7":"Extremely severe"
+		}
+	},
+	"bprs9":{
+		"Description":"Suspiciousness",
+		"Levels":{
+			"1":"None",
+			"2":"Very mild",
+			"3":"Mild",
+			"4":"Moderate",
+			"5":"Moderately severe",
+			"6":"Severe",
+			"7":"Extremely severe"
+		}
+	},
+	"bprs10":{
+		"Description":"Hallucinations",
+		"Levels":{
+			"1":"None",
+			"2":"Very mild",
+			"3":"Mild",
+			"4":"Moderate",
+			"5":"Moderately severe",
+			"6":"Severe",
+			"7":"Extremely severe"
+		}
+	},
+	"bprs11":{
+		"Description":"Unusual thought content",
+		"Levels":{
+			"1":"None",
+			"2":"Very mild",
+			"3":"Mild",
+			"4":"Moderate",
+			"5":"Moderately severe",
+			"6":"Severe",
+			"7":"Extremely severe"
+		}
+	},
+	"bprs12":{
+		"Description":"Bizarre behaviour",
+		"Levels":{
+			"1":"None",
+			"2":"Very mild",
+			"3":"Mild",
+			"4":"Moderate",
+			"5":"Moderately severe",
+			"6":"Severe",
+			"7":"Extremely severe"
+		}
+	},
+	"bprs13":{
+		"Description":"Self-neglect",
+		"Levels":{
+			"1":"None",
+			"2":"Very mild",
+			"3":"Mild",
+			"4":"Moderate",
+			"5":"Moderately severe",
+			"6":"Severe",
+			"7":"Extremely severe"
+		}
+	},
+	"bprs14":{
+		"Description":"Disorientation",
+		"Levels":{
+			"1":"None",
+			"2":"Very mild",
+			"3":"Mild",
+			"4":"Moderate",
+			"5":"Moderately severe",
+			"6":"Severe",
+			"7":"Extremely severe"
+		}
+	},
+	"bprs15":{
+		"Description":"Conceptual disorganisation",
+		"Levels":{
+			"1":"None",
+			"2":"Very mild",
+			"3":"Mild",
+			"4":"Moderate",
+			"5":"Moderately severe",
+			"6":"Severe",
+			"7":"Extremely severe"
+		}
+	},
+	"bprs16":{
+		"Description":"Blunted affect",
+		"Levels":{
+			"1":"None",
+			"2":"Very mild",
+			"3":"Mild",
+			"4":"Moderate",
+			"5":"Moderately severe",
+			"6":"Severe",
+			"7":"Extremely severe"
+		}
+	},
+	"bprs17":{
+		"Description":"Emotional withdrawal",
+		"Levels":{
+			"1":"None",
+			"2":"Very mild",
+			"3":"Mild",
+			"4":"Moderate",
+			"5":"Moderately severe",
+			"6":"Severe",
+			"7":"Extremely severe"
+		}
+	},
+	"bprs18":{
+		"Description":"Motor retardation",
+		"Levels":{
+			"1":"None",
+			"2":"Very mild",
+			"3":"Mild",
+			"4":"Moderate",
+			"5":"Moderately severe",
+			"6":"Severe",
+			"7":"Extremely severe"
+		}
+	},
+	"bprs19":{
+		"Description":"Tension",
+		"Levels":{
+			"1":"None",
+			"2":"Very mild",
+			"3":"Mild",
+			"4":"Moderate",
+			"5":"Moderately severe",
+			"6":"Severe",
+			"7":"Extremely severe"
+		}
+	},
+	"bprs20":{
+		"Description":"Uncooperativeness",
+		"Levels":{
+			"1":"None",
+			"2":"Very mild",
+			"3":"Mild",
+			"4":"Moderate",
+			"5":"Moderately severe",
+			"6":"Severe",
+			"7":"Extremely severe"
+		}
+	},
+	"bprs21":{
+		"Description":"Excitement",
+		"Levels":{
+			"1":"None",
+			"2":"Very mild",
+			"3":"Mild",
+			"4":"Moderate",
+			"5":"Moderately severe",
+			"6":"Severe",
+			"7":"Extremely severe"
+		}
+	},
+	"bprs22":{
+		"Description":"Distractability",
+		"Levels":{
+			"1":"None",
+			"2":"Very mild",
+			"3":"Mild",
+			"4":"Moderate",
+			"5":"Moderately severe",
+			"6":"Severe",
+			"7":"Extremely severe"
+		}
+	},
+	"bprs23":{
+		"Description":"Motor hyperactivity",
+		"Levels":{
+			"1":"None",
+			"2":"Very mild",
+			"3":"Mild",
+			"4":"Moderate",
+			"5":"Moderately severe",
+			"6":"Severe",
+			"7":"Extremely severe"
+		}
+	},
+	"bprs24":{
+		"Description":"Mannerisms and posturing",
+		"Levels":{
+			"1":"None",
+			"2":"Very mild",
+			"3":"Mild",
+			"4":"Moderate",
+			"5":"Moderately severe",
+			"6":"Severe",
+			"7":"Extremely severe"
+		}
+	},
+	"bprs_total":{
+		"Description":"Total score (sum of all items)",
+		"Derivative":true
+	},
+	"bprs_act":{
+		"Description":"Activation subscale (sum of items 7, 21, & 23)",
+		"Derivative":true,
+		"Source":"15-item, 5-factor model (Shafer et al. 2017, https:\/\/doi.org\/10.1016\/j.jpsychires.2017.05.011)"
+	},
+	"bprs_pos":{
+		"Description":"Positive symptoms subscale (sum of items 9, 10, & 11)",
+		"Derivative":true,
+		"Source":"15-item, 5-factor model (Shafer et al. 2017, https:\/\/doi.org\/10.1016\/j.jpsychires.2017.05.011)"
+	},
+	"bprs_neg":{
+		"Description":"Negative symptoms subscale (sum of items 16, 17, & 18)",
+		"Derivative":true,
+		"Source":"15-item, 5-factor model (Shafer et al. 2017, https:\/\/doi.org\/10.1016\/j.jpsychires.2017.05.011)"
+	},
+	"bprs_aff":{
+		"Description":"Affect subscale (sum of items 3, 4, & 5)",
+		"Derivative":true,
+		"Source":"15-item, 5-factor model (Shafer et al. 2017, https:\/\/doi.org\/10.1016\/j.jpsychires.2017.05.011)"
+	},
+	"bprs_dis":{
+		"Description":"Disorganization subscale (sum of items 13, 14, & 15)",
+		"Derivative":true,
+		"Source":"15-item, 5-factor model (Shafer et al. 2017, https:\/\/doi.org\/10.1016\/j.jpsychires.2017.05.011)"
+	}
+}

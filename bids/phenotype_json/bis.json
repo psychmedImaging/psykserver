@@ -1,0 +1,85 @@
+{
+	"MeasurementToolMetadata":{
+		"Description":"The Birchwood Insight Scale (BIS)"
+	},
+	"bis1":{
+		"Description":"Some of my symptoms are made by my mind",
+		"Levels":{
+			"0":"Disagree",
+			"1":"Unsure",
+			"2":"Agree"
+		}
+	},
+	"bis2":{
+		"Description":"I am mentally well",
+		"Levels":{
+			"0":"Agree",
+			"1":"Unsure",
+			"2":"Disagree"
+		}
+	},
+	"bis3":{
+		"Description":"I do not need medication",
+		"Levels":{
+			"0":"Agree",
+			"1":"Unsure",
+			"2":"Disagree"
+		}
+	},
+	"bis4":{
+		"Description":"My stay in hospital was necessary",
+		"Levels":{
+			"0":"Disagree",
+			"1":"Unsure",
+			"2":"Agree"
+		}
+	},
+	"bis5":{
+		"Description":"The doctor is right in prescribing medication for me",
+		"Levels":{
+			"0":"Disagree",
+			"1":"Unsure",
+			"2":"Agree"
+		}
+	},
+	"bis6":{
+		"Description":"I do not need to be seen by a doctor or psychiatrist",
+		"Levels":{
+			"0":"Agree",
+			"1":"Unsure",
+			"2":"Disagree"
+		}
+	},
+	"bis7":{
+		"Description":"If someone said I had a nervous or mental illness, they would be right",
+		"Levels":{
+			"0":"Disagree",
+			"1":"Unsure",
+			"2":"Agree"
+		}
+	},
+	"bis8":{
+		"Description":"None of the unusual things I experienced are due to an illness",
+		"Levels":{
+			"0":"Agree",
+			"1":"Unsure",
+			"2":"Disagree"
+		}
+	},
+	"bis_aware":{
+		"Description":"Awareness of illness (sum of items 2 & 7)",
+		"Derivative":1
+	},
+	"bis_relabel":{
+		"Description":"Re-labeling of symptoms (sum of items 1 & 8)",
+		"Derivative":1
+	},
+	"bis_treatment":{
+		"Description":"Need for treatment (sum of items 3, 4, 5, & 6, divided by 2)",
+		"Derivative":1
+	},
+	"bis_total":{
+		"Description":"Total score (sum of the three subscales)",
+		"Derivative":1
+	}
+}

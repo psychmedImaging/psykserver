@@ -1,0 +1,149 @@
+{
+	"MeasurementToolMetadata":{
+		"Description":"The reactions to research participation questionnaire for parents (RRPQ-P)"
+	},
+	"rrpq1":{
+		"Description":"Being in this study was boring",
+		"Levels":{
+			"1":"Strongly disagree",
+			"2":"Disagree",
+			"3":"Maybe",
+			"4":"Agree",
+			"5":"Strongly agree"
+		}
+	},
+	"rrpq2":{
+		"Description":"I am glad that I was in this study",
+		"Levels":{
+			"1":"Strongly disagree",
+			"2":"Disagree",
+			"3":"Maybe",
+			"4":"Agree",
+			"5":"Strongly agree"
+		}
+	},
+	"rrpq3":{
+		"Description":"It was my choice if I was in the study (I could have said no even if other people wanted me to say yes)",
+		"Levels":{
+			"1":"Strongly disagree",
+			"2":"Disagree",
+			"3":"Maybe",
+			"4":"Agree",
+			"5":"Strongly agree"
+		}
+	},
+	"rrpq4":{
+		"Description":"Being in this study made me feel upset or sad",
+		"Levels":{
+			"1":"Strongly disagree",
+			"2":"Disagree",
+			"3":"Maybe",
+			"4":"Agree",
+			"5":"Strongly agree"
+		}
+	},
+	"rrpq5":{
+		"Description":"The things I said will stay private (no one else will know I said them)",
+		"Levels":{
+			"1":"Strongly disagree",
+			"2":"Disagree",
+			"3":"Maybe",
+			"4":"Agree",
+			"5":"Strongly agree"
+		}
+	},
+	"rrpq6":{
+		"Description":"I am sorry I was in this study",
+		"Levels":{
+			"1":"Strongly disagree",
+			"2":"Disagree",
+			"3":"Maybe",
+			"4":"Agree",
+			"5":"Strongly agree"
+		}
+	},
+	"rrpq7":{
+		"Description":"Being in this study made me feel good about myself",
+		"Levels":{
+			"1":"Strongly disagree",
+			"2":"Disagree",
+			"3":"Maybe",
+			"4":"Agree",
+			"5":"Strongly agree"
+		}
+	},
+	"rrpq8":{
+		"Description":"I was told the truth about the study before it started",
+		"Levels":{
+			"1":"Strongly disagree",
+			"2":"Disagree",
+			"3":"Maybe",
+			"4":"Agree",
+			"5":"Strongly agree"
+		}
+	},
+	"rrpq9":{
+		"Description":"I feel good about helping other people by being in this study",
+		"Levels":{
+			"1":"Strongly disagree",
+			"2":"Disagree",
+			"3":"Maybe",
+			"4":"Agree",
+			"5":"Strongly agree"
+		}
+	},
+	"rrpq10":{
+		"Description":"I knew I could skip questions or parts of the study if I wanted to",
+		"Levels":{
+			"1":"Strongly disagree",
+			"2":"Disagree",
+			"3":"Maybe",
+			"4":"Agree",
+			"5":"Strongly agree"
+		}
+	},
+	"rrpq11":{
+		"Description":"I knew I could stop at any time",
+		"Levels":{
+			"1":"Strongly disagree",
+			"2":"Disagree",
+			"3":"Maybe",
+			"4":"Agree",
+			"5":"Strongly agree"
+		}
+	},
+	"rrpq12":{
+		"Description":"I knew I could ask to take a break whenever I wanted",
+		"Levels":{
+			"1":"Strongly disagree",
+			"2":"Disagree",
+			"3":"Maybe",
+			"4":"Agree",
+			"5":"Strongly agree"
+		}
+	},
+	"rrpq_pos":{
+		"Description":"Positive appraisals - subscale (sum of items 2, 7, & 9)",
+		"Derivative":1,
+		"Source":"Kindler et al. 2019, https://doi.org/10.1177/1747016119865733"
+	},
+	"rrpq_neg":{
+		"Description":"Negative appraisals - subscale (sum of items 1, 4, & 6 - reversed)",
+		"Derivative":1,
+		"Source":"Kindler et al. 2019, https://doi.org/10.1177/1747016119865733"
+	},
+	"rrpq_trust":{
+		"Description":"Trust and understanding of informed consent - subscale (sum of items 3, 5, & 8)",
+		"Derivative":1,
+		"Source":"Kindler et al. 2019, https://doi.org/10.1177/1747016119865733"
+	},
+	"rrpq_rights":{
+		"Description":"Understanding of one's rights during participation - subscale (sum of items 10, 11, & 12)",
+		"Derivative":1,
+		"Source":"Kindler et al. 2019, https://doi.org/10.1177/1747016119865733"
+	},
+	"rrpq_total":{
+		"Description":"Sum of the four subscales",
+		"Derivative":1
+	}
+}

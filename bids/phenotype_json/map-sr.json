@@ -1,0 +1,159 @@
+{
+	"MeasurementToolMetadata":{
+		"Description":"The Motivation and Pleasure Scale – Self-Report (MAP-SR)"
+	},
+	"mapsr1":{
+		"Description":"In the past week, what is the most pleasure you experienced from being with other people?",
+		"Levels":{
+			"0":"No pleasure",
+			"1":"",
+			"2":"",
+			"3":"",
+			"4":"Extreme pleasure"
+		}
+	},
+	"mapsr2":{
+		"Description":"In the past week, how often have you experienced pleasure from being with other people?",
+		"Levels":{
+			"0":"Not at all",
+			"1":"",
+			"2":"",
+			"3":"",
+			"4":"Very often"
+		}
+	},
+	"mapsr3":{
+		"Description":"Looking ahead to being with other people in the next few weeks, how much pleasure do you expect you will experience from being with others?",
+		"Levels":{
+			"0":"No pleasure",
+			"1":"",
+			"2":"",
+			"3":"",
+			"4":"Extreme pleasure"
+		}
+	},
+	"mapsr4":{
+		"Description":"In the past week, what is the most pleasure you experienced from hobbies, recreation, or from work?",
+		"Levels":{
+			"0":"No pleasure",
+			"1":"",
+			"2":"",
+			"3":"",
+			"4":"Extreme pleasure"
+		}
+	},
+	"mapsr5":{
+		"Description":"In the past week, how often have you experienced pleasure from hobbies, recreation, or from work?",
+		"Levels":{
+			"0":"Not at all",
+			"1":"",
+			"2":"",
+			"3":"",
+			"4":"Very often"
+		}
+	},
+	"mapsr6":{
+		"Description":"Looking ahead to the next few weeks, how much pleasure do you expect you will experience from your hobbies, recreation, or work?",
+		"Levels":{
+			"0":"No pleasure",
+			"1":"",
+			"2":"",
+			"3":"",
+			"4":"Extreme pleasure"
+		}
+	},
+	"mapsr7":{
+		"Description":"When it comes to close relationships with your family members, how important have these relationships been to you over the past week?",
+		"Levels":{
+			"0":"Not at all important to me",
+			"1":"",
+			"2":"",
+			"3":"",
+			"4":"Extremely important to me"
+		}
+	},
+	"mapsr8":{
+		"Description":"When it comes to having a close relationship with a romantic partner, how important has this type of relationship been to you over the past week?",
+		"Levels":{
+			"0":"Not at all important to me",
+			"1":"",
+			"2":"",
+			"3":"",
+			"4":"Extremely important to me"
+		}
+	},
+	"mapsr9":{
+		"Description":"When it comes to close relationships with your friends, how important have these relationships been to you over the past week?",
+		"Levels":{
+			"0":"Not at all important to me",
+			"1":"",
+			"2":"",
+			"3":"",
+			"4":"Extremely important to me"
+		}
+	},
+	"mapsr10":{
+		"Description":"In the past week how motivated have you been to be around other people and do things with them?",
+		"Levels":{
+			"0":"Not at all motivated",
+			"1":"",
+			"2":"",
+			"3":"",
+			"4":"Very motivated"
+		}
+	},
+	"mapsr11":{
+		"Description":"In the past week how much effort have you made to actually do things with other people?",
+		"Levels":{
+			"0":"No effort",
+			"1":"",
+			"2":"",
+			"3":"",
+			"4":"Very much effort"
+		}
+	},
+	"mapsr12":{
+		"Description":"In the past week how motivated have you been to go to work or school or look for a job or class to take?",
+		"Levels":{
+			"0":"Not at all motivated",
+			"1":"",
+			"2":"",
+			"3":"",
+			"4":"Very motivated"
+		}
+	},
+	"mapsr13":{
+		"Description":"In the past week how much effort have you made to do things at work or school? (If you are not working or going to school, how much effort have you made to look for a job or go to school.)",
+		"Levels":{
+			"0":"No effort",
+			"1":"",
+			"2":"",
+			"3":"",
+			"4":"Very much effort"
+		}
+	},
+	"mapsr14":{
+		"Description":"In the past week how motivated have you been to do hobbies or other recreational activities?",
+		"Levels":{
+			"0":"Not at all motivated",
+			"1":"",
+			"2":"",
+			"3":"",
+			"4":"Very motivated"
+		}
+	},
+	"mapsr15":{
+		"Description":"In the past week how much effort have you made to actually do any hobbies or recreational activities?",
+		"Levels":{
+			"0":"No effort",
+			"1":"",
+			"2":"",
+			"3":"",
+			"4":"Very much effort"
+		}
+	},
+	"mapsr_total":{
+		"Description":"Total score",
+		"Derivative":1
+	}
+}
