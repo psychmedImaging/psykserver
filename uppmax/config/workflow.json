@@ -1,0 +1,10 @@
+[
+    {
+        "config": "qsiprep-settings.json",
+        "dependency": null
+    },
+    {
+        "config": "qsirecon-settings.json",
+        "dependency": 0
+    }
+]

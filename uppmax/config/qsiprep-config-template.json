@@ -1,0 +1,19 @@
+{
+    "job-name": "qsiprep-[version[-label]]",
+    "container": "qsiprep-[version].simg",
+    "input-data": "/data",
+    "options": {
+        "--output-resolution": "[mm]",
+        "--fs-license-file": "${APPTAINERENV_FS_LICENSE}",
+        "-w": "/work",
+        "--write-graph": ""
+    },
+    "environment": {
+        "APPTAINERENV_FS_LICENSE": "/sw/apps/freesurfer/7.4.1/bianca/license.txt",
+        "APPTAINERENV_TEMPLATEFLOW_HOME": "/templateflow"
+    },
+    "sbatch": {
+        "--time": "[d-HH:MM:SS]",
+        "--ntasks": "[n]"
+    }
+}
