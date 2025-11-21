@@ -1,9 +1,6 @@
-Template for the Read the Docs tutorial
+Read the Docs
 =======================================
 
-This GitHub template includes fictional Python library
-with some basic Sphinx docs.
+Here is a link to the documentation for UPPMAX scripts, server access, etc:
 
-Read the tutorial here:
-
-https://docs.readthedocs.io/en/stable/tutorial/
+https://psychmedimaging-rtd-psykserver.readthedocs.io/en/latest/
