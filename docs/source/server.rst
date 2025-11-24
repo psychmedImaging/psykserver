@@ -63,6 +63,9 @@ By clicking Neurodesktop in the JupyterLab launcher, you can access a remote des
 
 Accessing Neurodesktop
 ^^^^^^^^^^^^^^^^^^^^^^^
+
+.. note:: If at any time you are asked for a token when (re)accessing Neurodesktop, the easiest way to recover the full link with a token is by running ``ssh akka-id@server-ip`` and then ``/srv/scripts/run/neurodesktop_version.sh [the version you are running]``
+
 Option 1: Web browser
 *********************
 The quickest way to access Neurodesktop is via your browser. Simply open the link that appears in the terminal after running the startup script. You will reach JupyterLab from which you can access a remote desktop (click the Neurodesktop icon in the launcher). RDP and VNC both have their advantages and disadvantages. Pick the one that works best. A common limitation is that some key combinations (e.g. alt gr + key) might not work as well as copy/pasting from other applications.
