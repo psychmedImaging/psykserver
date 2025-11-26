@@ -8,6 +8,7 @@
 //BNC4       7    PH4
 //BNC5       8    PH5
 //LDR        9    PH6
+//LDR-anlg  A7
 //ledBNC0   22    PA0
 //ledBNC1   23    PA1
 //ledBNC2   24    PA2
@@ -45,13 +46,14 @@
 
 //Digital input masks
 const uint8_t digitalInputs1 = (1 << PG0) | (1 << PG1) | (1 << PG2);
-const uint8_t digitalInputs2 = (1 << PH3) | (1 << PH4) | (1 << PH5) | (1 << PH6);
-const uint8_t BNCOutputs = (1 << PJ0) | (1 << PJ1);
+const uint8_t digitalInputs2 = (1 << PH3) | (1 << PH4) | (1 << PH5); //| (1 << PH6);
 
 //Analog sources
-#define inputAudio A1  //PF1
+#define inputAudio A1 
+#define inputLDR   A7 
 
-const int EEPROM_ADDRESS = 0;
+const int EEPROM_ADDRESS_AUDIO = 0;
+const int EEPROM_ADDRESS_LDR = 4;   // int takes 4 bytes
 
 // LCD setup
 const int colorR = 0;
@@ -61,10 +63,12 @@ DFRobot_RGBLCD1602 lcd(0x6B, 16, 2);
 
 // Encoder and threshold variables
 volatile int diff = 0;
-volatile int threshold = 511;
-const int stepSizeBig = 10;
-const int stepSizeSmall = 1;
-volatile int stepSize = stepSizeBig;
+volatile int audioThreshold = 511;
+volatile int ldrThreshold = 511;
+volatile int stepSize = 1;
+
+// Track which threshold is currently being edited (0=Audio, 1=LDR)
+volatile int currentThresholdMode = 0;
 
 // Button debouncing variables
 volatile boolean buttonEvent = false;
@@ -74,13 +78,14 @@ unsigned long lastDebounceTime = 0;
 unsigned long debounceDelay = 50;
 
 // Track last displayed values to avoid unnecessary updates
-int lastDisplayedThreshold = -1;
-int lastDisplayedStep = -1;
+int lastDisplayedAudioThreshold = -1;
+int lastDisplayedLDRThreshold = -1;
+int lastDisplayedMode = -1;
 
 void setup() {
   //Set pin 6-9 (BNC0, BNC1, BNC2, BNC3) as inputs
   DDRG &= ~(digitalInputs1);
-  //Set pin 10-12 (BNC4, BNC5, Photoresistor) as inputs
+  //Set pin 10-12 (BNC4, BNC5) as inputs
   DDRH &= ~(digitalInputs2);
   //Set pin 22-29 (LEDs) as output
   DDRA = 0xFF;
@@ -94,7 +99,6 @@ void setup() {
   pinMode(inputRotaryA, INPUT_PULLUP);
   pinMode(inputRotaryB, INPUT_PULLUP);
   pinMode(inputRotaryButton, INPUT_PULLUP);
-  pinMode(inputAudio, INPUT);
 
   //Initialize EEG outputs
   PORTC = 0x00;
@@ -108,67 +112,77 @@ void setup() {
   ADCSRA |= (1 << ADPS2) | (1 << ADPS0);
   ADCSRA &= ~(1 << ADPS1);
   
-  //Restore audio threshold from EEPROM
-  EEPROM.get(EEPROM_ADDRESS, threshold);
+  //Restore thresholds from EEPROM
+  EEPROM.get(EEPROM_ADDRESS_AUDIO, audioThreshold);
+  EEPROM.get(EEPROM_ADDRESS_LDR, ldrThreshold);
 
   // Initialize LCD and set display
   lcd.init();
   lcd.setRGB(colorR, colorG, colorB);
   lcd.clear();
-  lcd.setCursor(0, 0);
-  lcd.print("Threshold:");
-  lcd.setCursor(0, 1);
-  lcd.print("Step:");
   updateLCD();
 
   // Setup encoder interrupts
   attachInterrupt(digitalPinToInterrupt(inputRotaryA), readEncoder, CHANGE);
   attachInterrupt(digitalPinToInterrupt(inputRotaryB), readEncoder, CHANGE);
 
-  //Enable pin change interrupt on port B
+  //Enable pin change interrupt on port B (button press)
   PCICR |= (1 << PCIE0); 
   PCMSK0 |= (1 << PCINT4); //enables PCINT for pin10
 
-  Serial.begin(9600);
+  //Serial.begin(9600);
 }
 
 void loop() {
-  static bool updateOutputs = false;
-  static bool lastAudioState = 0;
-  static uint8_t lastDigitalState = 0;
 
-  //Handle audio
+  //Handle audio (approx 27us analogRead)
   int audioLevel = analogRead(inputAudio);
-  bool audioState = (audioLevel > threshold);
-  if (audioState != lastAudioState) {
-    lastAudioState = audioState;
-    updateOutputs = true;
-  }
+  bool audioState = (audioLevel > audioThreshold);
+
+  // Handle LDR (approx 27us analogRead)
+  int ldrLevel = analogRead(inputLDR);
+  bool ldrState = (ldrLevel > ldrThreshold);
 
   //Handle digital inputs
   uint8_t digitalState = (PING & digitalInputs1) | (PINH & digitalInputs2);
-  if (digitalState != lastDigitalState) {
-    lastDigitalState = digitalState;
-    updateOutputs = true;
-  }
 
-  if (updateOutputs) {
-    uint8_t inputState = (audioState << 7) | digitalState;
+ //Combined input state
+  uint8_t inputState = (audioState << 7) | (ldrState << 6) | digitalState;
+
+  static uint8_t lastInputState = 0; 
+  if (inputState != lastInputState) {
+    lastInputState = inputState;
+    
     PORTA = inputState;   //update LEDs
     PORTC = inputState;   //write state to EEG
     PORTL = inputState;   //write state to EyeTracker
-    bool AUXOut = inputState;
-    bool NaviOut = (inputState & 0x07);
-    PORTJ = (NaviOut << PJ1) | (AUXOut << PJ0);
-    updateOutputs = false;
-    //Serial.println(inputState)
+
+    PORTJ = 0x00; // Reset port J
+    if (inputState) { 
+        PORTJ |= (1 << PJ0); // Set AUX out if any input is high
+    }
+    if (inputState & 0x07) { // Check if lower 3 bits (BNC 0-2) are set for Navi
+        PORTJ |= (1 << PJ1);
+    }
   }
 
-  // Handle encoder output
+  // Handle encoder output 
   if (diff != 0) {
-    updateLCD();  // Update LCD when threshold changes
-    EEPROM.put(EEPROM_ADDRESS, threshold); //store new threshold
-    diff = 0;
+    // START CRITICAL SECTION 
+    noInterrupts(); 
+    int currentDiff = diff; // Quickly copy the volatile value
+    diff = 0;               // Reset the volatile flag
+    interrupts();
+    // END CRITICAL SECTION
+
+    if (currentThresholdMode == 0) {
+      audioThreshold = audioThreshold + currentDiff;
+      EEPROM.put(EEPROM_ADDRESS_AUDIO, audioThreshold);
+    } else {
+      ldrThreshold = ldrThreshold + currentDiff;
+      EEPROM.put(EEPROM_ADDRESS_LDR, ldrThreshold);
+    }
+    updateLCD();
   }
 
   // Handle button press with debouncing
@@ -178,12 +192,8 @@ void loop() {
       if (reading != lastButtonState) {
         lastButtonState = reading;
         if (lastButtonState == LOW) {
-          // Toggle step size
-          if (stepSize == stepSizeBig) {
-            stepSize = stepSizeSmall;
-          } else if (stepSize == stepSizeSmall) {
-            stepSize = stepSizeBig;
-          }
+          // Toggle threshold mode
+          currentThresholdMode = 1 - currentThresholdMode; // Toggles between 0 and 1
           updateLCD();
         }
       }
@@ -194,21 +204,36 @@ void loop() {
 }
 
 void updateLCD() {
-  // Only update if values have changed (prevents flickering)
-  if (threshold != lastDisplayedThreshold) {
-    lcd.setCursor(11, 0);
-    lcd.print("     ");  // Clear old value
-    lcd.setCursor(11, 0);
-    lcd.print(threshold);
-    lastDisplayedThreshold = threshold;
-  }
+  // Update Threshold values
+  if (audioThreshold != lastDisplayedAudioThreshold || ldrThreshold != lastDisplayedLDRThreshold) {
+    lcd.clear(); // Easier than clearing specific areas
+    lcd.setCursor(0, 0);
+    lcd.print("Aud T:");
+    lcd.print(audioThreshold);
+    lcd.setCursor(0, 1);
+    lcd.print("LDR T:");
+    lcd.print(ldrThreshold);
 
-  if (stepSize != lastDisplayedStep) {
-    lcd.setCursor(6, 1);
-    lcd.print("          ");  // Clear old value
-    lcd.setCursor(6, 1);
-    lcd.print(stepSize);
-    lastDisplayedStep = stepSize;
+    lastDisplayedAudioThreshold = audioThreshold;
+    lastDisplayedLDRThreshold = ldrThreshold;
+  }
+  
+  // Update mode indicator (using cursor position to show active mode)
+  if (currentThresholdMode != lastDisplayedMode) {
+    if (currentThresholdMode == 0) {
+        // Highlight Audio (maybe move cursor to start of line 0 for a moment, or use a character)
+        // Simple text indicator:
+        lcd.setCursor(15, 0);
+        lcd.print("<");
+        lcd.setCursor(15, 1);
+        lcd.print(" ");
+    } else {
+        lcd.setCursor(15, 0);
+        lcd.print(" ");
+        lcd.setCursor(15, 1);
+        lcd.print("<");
+    }
+    lastDisplayedMode = currentThresholdMode;
   }
 }
 
@@ -232,7 +257,6 @@ void readEncoder() {
 
   if (direction != 0) {
     diff = direction;
-    threshold = threshold + direction * stepSize;
   }
 
   lastEncoded = encoded;
