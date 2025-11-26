@@ -103,6 +103,11 @@ void setup() {
   //Initialize BNC outputs
   PORTJ &= ~0x03;
 
+  // Set ADC prescaler to 32 (16MHz/32 = 500kHz ADC clock)
+  // This reduces analogRead time to ~27us
+  ADCSRA |= (1 << ADPS2) | (1 << ADPS0);
+  ADCSRA &= ~(1 << ADPS1);
+  
   //Restore audio threshold from EEPROM
   EEPROM.get(EEPROM_ADDRESS, threshold);
 
