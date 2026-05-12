@@ -47,7 +47,11 @@ def run_bidsapp(study_folder,config_file,depend_job=None):
     
     if cfg['level']=='participant':
         #get participants to process
-        participants=get_participants(bids_folder)
+        if 'participants' in cfg:
+            participant_file=cfg['participants']
+        else:
+            participant_file='participants.tsv'
+        participants=get_participants(bids_folder,participant_file)
         array='1-'+str(len(participants))
         sbatch_str+=' -a '+array
         getsub_cmd='subject="$(cut -d" " -f$SLURM_ARRAY_TASK_ID <<<'+'"'+(' '.join(participants))+'")"\n'
@@ -96,8 +100,8 @@ def sbatch(job_name,proj_name,log,command,opts,dependency):
         sbatch_cmd+=' -d '+dependency
     return subprocess.getoutput(sbatch_cmd)
 
-def get_participants(folder):
-    file=os.path.join(folder,'participants.tsv')
+def get_participants(folder,pfile):
+    file=os.path.join(folder,pfile)
     if not os.path.exists(file):
         raise Exception('No participants.tsv found in '+folder)
     participants=[]
